@@ -66,9 +66,6 @@
     - 서버 오류, 네트워크 문제 등 다양한 에러 상황에 대한 처리를 구현합니다.
     - 사용자에게 이해하기 쉬운 에러 메시지를 제공합니다.
 
-### **선택사항**
-- 페이지 접근 권한 관리와 로그인 상태 검증을 **proxy.ts**(구 middleware.ts)를 활용해 서버 단(Proxy)에서 미리 처리해 보세요! (참고자료: [Next.js proxy](https://nextjs.org/docs/app/getting-started/proxy))
-
 ---
 
 ### **디자인 참고**
@@ -91,3 +88,4 @@
 
 - API 요청 방식은 자유롭게 선택 가능 (예: Fetch API, axios 등).
 - 최신 자바스크립트 스타일에 익숙해지기 위해 `Promise.then()` 대신 `async/await`를 사용해 보세요.
+- 페이지 접근 권한 관리와 로그인 상태 검증을 **proxy.ts**(구 middleware.ts)를 활용해 서버 단(Proxy)에서 미리 처리해 보세요! (참고자료: [Next.js proxy](https://nextjs.org/docs/app/getting-started/proxy))

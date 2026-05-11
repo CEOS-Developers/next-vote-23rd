@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@theme {
+  /* Purple */
+  --color-purple-10: #f3edff;
+  --color-purple-20: #e0d2ff;
+  --color-purple-30: #c1a5ff;
+  --color-purple-40: #a379fc;
+  --color-purple-50: #874fff;
+  --color-purple-60: #662ae6;
+  --color-purple-70: #440db9;
+  --color-purple-80: #2e0c77;
+  --color-purple-90: #23085d;
+
+  /* Gray */
+  --color-gray-10: #f3f5f7;
+  --color-gray-20: #edeff2;
+  --color-gray-30: #e4e7eb;
+  --color-gray-40: #d0d4db;
+  --color-gray-50: #b4b9c2;
+  --color-gray-60: #959ca6;
+  --color-gray-70: #636973;
+  --color-gray-80: #464950;
+  --color-gray-90: #282c33;
+
+  /* B/W */
+  --color-white: #ffffff;
+  --color-black: #191919;
+
+  /* Point */
+  --color-point-1: #ff4f4f;
+
+  /* Gradient */
+  --background-image-purple-fade: linear-gradient(
+    180deg,
+    rgba(224, 210, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}

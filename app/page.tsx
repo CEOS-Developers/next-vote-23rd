@@ -1,5 +1,5 @@
 const page = () => {
-  return <div className="text-purple-600">page</div>;
+  return <div>Ditda</div>;
 };
 
 export default page;

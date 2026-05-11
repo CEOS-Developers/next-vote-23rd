@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-white">
+    <html lang="ko" className="h-full overflow-hidden antialiased">
+      <body className="flex h-full flex-col overflow-hidden bg-white">
         <Header />
         <main className="relative flex-1">
           <div className="bg-purple-fade pointer-events-none absolute top-0 right-0 left-0 h-22.5" />

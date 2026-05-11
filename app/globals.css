@@ -1,6 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Pretendard Variable";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/PretendardVariable.woff2") format("woff2");
+}
+
+* {
+  font-family: "Pretendard Variable", sans-serif;
+}
+
 @theme {
+  /****** Colors ******/
   /* Purple */
   --color-purple-10: #f3edff;
   --color-purple-20: #e0d2ff;
@@ -36,4 +49,89 @@
     rgba(224, 210, 255, 0.5) 0%,
     rgba(255, 255, 255, 0.5) 100%
   );
+
+  /****** Typography ******/
+  /* Heading 01_SB */
+  --text-heading1-sb: 1.25rem;
+  --text-heading1-sb--font-weight: 600;
+  --text-heading1-sb--line-height: 140%;
+  --text-heading1-sb--letter-spacing: -0.02em;
+
+  /* Heading 02_SB */
+  --text-heading2-sb: 1.125rem;
+  --text-heading2-sb--font-weight: 600;
+  --text-heading2-sb--line-height: 140%;
+  --text-heading2-sb--letter-spacing: -0.02em;
+
+  /* Heading 02_M */
+  --text-heading2-m: 1.125rem;
+  --text-heading2-m--font-weight: 500;
+  --text-heading2-m--line-height: 140%;
+  --text-heading2-m--letter-spacing: -0.02em;
+
+  /* Heading 03_SB */
+  --text-heading3-sb: 1rem;
+  --text-heading3-sb--font-weight: 600;
+  --text-heading3-sb--line-height: 140%;
+  --text-heading3-sb--letter-spacing: -0.02em;
+
+  /* Heading 03_M */
+  --text-heading3-m: 1rem;
+  --text-heading3-m--font-weight: 500;
+  --text-heading3-m--line-height: 140%;
+  --text-heading3-m--letter-spacing: -0.02em;
+
+  /* Body 01_SB */
+  --text-body1-sb: 0.9375rem;
+  --text-body1-sb--font-weight: 600;
+  --text-body1-sb--line-height: 160%;
+  --text-body1-sb--letter-spacing: -0.02em;
+
+  /* Body 01_M */
+  --text-body1-m: 0.9375rem;
+  --text-body1-m--font-weight: 500;
+  --text-body1-m--line-height: 160%;
+  --text-body1-m--letter-spacing: -0.02em;
+
+  /* Body 02_SB */
+  --text-body2-sb: 0.875rem;
+  --text-body2-sb--font-weight: 600;
+  --text-body2-sb--line-height: 160%;
+  --text-body2-sb--letter-spacing: -0.02em;
+
+  /* Body 02_M */
+  --text-body2-m: 0.875rem;
+  --text-body2-m--font-weight: 500;
+  --text-body2-m--line-height: 160%;
+  --text-body2-m--letter-spacing: -0.02em;
+
+  /* Body 02_R */
+  --text-body2-r: 0.875rem;
+  --text-body2-r--font-weight: 400;
+  --text-body2-r--line-height: 160%;
+  --text-body2-r--letter-spacing: -0.02em;
+
+  /* Caption 01_SB */
+  --text-caption1-sb: 0.8125rem;
+  --text-caption1-sb--font-weight: 600;
+  --text-caption1-sb--line-height: 140%;
+  --text-caption1-sb--letter-spacing: -0.02em;
+
+  /* Caption 01_M */
+  --text-caption1-m: 0.8125rem;
+  --text-caption1-m--font-weight: 500;
+  --text-caption1-m--line-height: 140%;
+  --text-caption1-m--letter-spacing: -0.02em;
+
+  /* Caption 02_SB */
+  --text-caption2-sb: 0.75rem;
+  --text-caption2-sb--font-weight: 600;
+  --text-caption2-sb--line-height: 140%;
+  --text-caption2-sb--letter-spacing: -0.02em;
+
+  /* Caption 02_M */
+  --text-caption2-m: 0.75rem;
+  --text-caption2-m--font-weight: 500;
+  --text-caption2-m--line-height: 140%;
+  --text-caption2-m--letter-spacing: -0.02em;
 }

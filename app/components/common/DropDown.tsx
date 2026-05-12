@@ -34,7 +34,7 @@ const DropDown = ({ options, value, onChange, placeholder = "선택" }: DropDown
   }, []);
 
   return (
-    <div ref={ref} className="relative inline-block">
+    <div ref={ref} className="relative w-fit">
       <button
         type="button"
         onClick={() => setOpen(prev => !prev)}
@@ -46,7 +46,7 @@ const DropDown = ({ options, value, onChange, placeholder = "선택" }: DropDown
         />
       </button>
       {open && (
-        <ul className="z-dropdown absolute top-full left-0 mt-1 w-full min-w-max overflow-hidden border border-purple-50 bg-white shadow-sm">
+        <ul className="z-dropdown absolute top-full left-0 mt-1 w-full overflow-hidden border border-purple-50 bg-white shadow-sm">
           {options.map(option => (
             <li key={option.value}>
               <button

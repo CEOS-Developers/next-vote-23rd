@@ -14,7 +14,7 @@ const InputField = ({ errorMessage, className, ...props }: InputFieldProps) => {
       <input
         {...props}
         className={cn(
-          "text-caption2-m md:text-body2-m placeholder:text-gray-60 text-gray-90 w-full border-b pb-1 transition-colors outline-none",
+          "text-caption2-m md:text-body2-m placeholder:text-gray-60 placeholder:text-caption2-m md:placeholder:text-body2-m text-gray-90 w-full border-b pb-1 transition-colors outline-none",
           className,
         )}
       />

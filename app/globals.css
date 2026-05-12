@@ -41,6 +41,11 @@
   /* Point */
   --color-point-1: #ff4f4f;
 
+  /* Main */
+  --color-main-main: #874fff;
+  --color-main-bright: #dcccff;
+  --color-main-dark: #4314a8;
+
   /* Gradient */
   --background-image-purple-fade: linear-gradient(
     180deg,
@@ -138,4 +143,11 @@
   --radius-20: 20px;
   --radius-24: 24px;
   --radius-50: 50px;
+
+  /****** Z-index ******/
+  --z-index-layout: 0;
+  --z-index-header: 10;
+  --z-index-sidebar: 20;
+  --z-index-dropdown: 30;
+  --z-index-modal: 50;
 }

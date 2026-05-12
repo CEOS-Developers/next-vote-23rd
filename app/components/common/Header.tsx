@@ -37,10 +37,9 @@ const Header = () => {
             </Link>
           ))}
         </nav>
-        <HamburgerIcon
-          className="text-purple-60 size-6 cursor-pointer md:hidden"
-          onClick={() => setSidebarOpen(true)}
-        />
+        <button type="button" onClick={() => setSidebarOpen(true)} className="md:hidden">
+          <HamburgerIcon className="text-purple-60 size-6 cursor-pointer" />
+        </button>
       </header>
       <div
         className={cn(

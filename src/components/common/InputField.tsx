@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from "react";
 
-import { cn } from "@/app/lib/utils/cn";
+import { cn } from "@/lib/utils/cn";
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string;

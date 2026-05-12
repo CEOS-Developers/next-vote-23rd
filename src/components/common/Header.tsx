@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import DitdaIcon from "@/app/assets/icons/icon_ditda_regular.svg";
-import HamburgerIcon from "@/app/assets/icons/icon_hamburger_regular.svg";
-import XIcon from "@/app/assets/icons/icon_x_regular.svg";
-import { NAV_ITEMS } from "@/app/constants/navigation";
-import { cn } from "@/app/lib/utils/cn";
+import DitdaIcon from "@/assets/icons/icon_ditda_regular.svg";
+import HamburgerIcon from "@/assets/icons/icon_hamburger_regular.svg";
+import XIcon from "@/assets/icons/icon_x_regular.svg";
+import { NAV_ITEMS } from "@/constants/navigation";
+import { cn } from "@/lib/utils/cn";
 
 const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

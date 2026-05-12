@@ -1,4 +1,4 @@
-import Profile from "@/app/assets/icons/icon_profile.svg";
+import Profile from "@/assets/icons/icon_profile.svg";
 
 interface ProfileProps {
   name: string;

@@ -1,7 +1,7 @@
-import Chip from "@/app/components/common/Chip";
-import CTA from "@/app/components/common/CTA";
-import BackgroundGraphic from "@/app/components/home/BackgroundGraphic";
-import { VOTE_CATEGORIES } from "@/app/constants/vote";
+import Chip from "@/components/common/Chip";
+import CTA from "@/components/common/CTA";
+import BackgroundGraphic from "@/components/home/BackgroundGraphic";
+import { VOTE_CATEGORIES } from "@/constants/vote";
 
 const page = () => {
   return (

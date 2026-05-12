@@ -1,6 +1,6 @@
-import HomeCircle from "@/app/assets/home/home_circle.svg";
-import HomeDiamond from "@/app/assets/home/home_diamond.svg";
-import HomeFlower from "@/app/assets/home/home_flower.svg";
+import HomeCircle from "@/assets/home/home_circle.svg";
+import HomeDiamond from "@/assets/home/home_diamond.svg";
+import HomeFlower from "@/assets/home/home_flower.svg";
 
 const BackgroundGraphic = () => {
   return (

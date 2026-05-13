@@ -1,11 +1,13 @@
 "use client";
 import { backendMembers } from "@/data/members";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "@/components/common/Button";
 import CTA from "@/components/common/CTA";
 import Modal from "@/components/common/Modal";
 
 const page = () => {
+  const router = useRouter();
   const [selectedMember, setSelectedMember] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
@@ -30,7 +32,7 @@ const page = () => {
     <div className="min-h-screen bg-white px-2 pt-21">
       <div className="flex w-full flex-col">
         <h1 className="text-body1-sb md:text-heading1-sb mb-2 text-purple-50 md:mb-3">
-          23RD FRONT-END
+          23RD BACK-END
         </h1>
 
         <div className="mt-2 grid grid-cols-2 gap-x-2 gap-y-2 md:mt-3 md:gap-x-3 md:gap-y-3">
@@ -53,7 +55,13 @@ const page = () => {
             <CTA label="투표하기" disabled={!isVoteEnabled} onClick={handleVoteClick} />
           </div>
         )}
-        <button type="button" className="text-caption2-m md:text-body2-m mt-3 cursor-pointer">
+        <button
+          type="button"
+          onClick={() =>
+            router.push(`/vote/backend-vote/ranking?selected=${encodeURIComponent(selectedMember)}`)
+          }
+          className="text-caption2-m md:text-body2-m mt-3 cursor-pointer"
+        >
           현재 투표 순위 보러 가기
         </button>
       </div>

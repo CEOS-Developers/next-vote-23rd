@@ -1,4 +1,4 @@
-import { cn } from "@/app/lib/utils/cn";
+import { cn } from "@/lib/utils/cn";
 
 type Tab = {
   label: string;

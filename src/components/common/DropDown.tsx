@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import ChevronDownIcon from "@/app/assets/icons/icon_chevron_down_regular.svg";
-import { cn } from "@/app/lib/utils/cn";
+import ChevronDownIcon from "@/assets/icons/icon_chevron_down_regular.svg";
+import { cn } from "@/lib/utils/cn";
 
 type Option = {
   label: string;

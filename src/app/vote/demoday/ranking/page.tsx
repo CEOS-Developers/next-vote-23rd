@@ -26,9 +26,9 @@ const page = () => {
           현재 데모데이 투표 순위
         </h1>
 
-        <div className="grid w-full grid-cols-1 gap-x-10 gap-y-2 md:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3 md:gap-x-8">
           {updatedRankings.map(item => (
-            <div key={item.rank} className="flex items-center gap-3">
+            <div key={item.rank} className="flex min-w-max items-center gap-3">
               <span className="text-body1-sb md:text-heading1-sb text-purple-50">{item.rank}</span>
 
               <Chip

@@ -40,7 +40,12 @@ const Header = () => {
           ))}
         </nav>
         <button type="button" onClick={() => setSidebarOpen(true)} className="md:hidden">
-          <HamburgerIcon className="text-purple-60 size-6 cursor-pointer" />
+          <HamburgerIcon
+            className={cn(
+              "hover:text-purple-60 size-6 cursor-pointer transition-colors",
+              sidebarOpen ? "text-purple-60" : "text-black",
+            )}
+          />
         </button>
       </header>
       <div
@@ -71,8 +76,8 @@ const Header = () => {
               href={href}
               onClick={() => setSidebarOpen(false)}
               className={cn(
-                "text-heading1-sb text-purple-60 cursor-pointer transition-colors hover:underline",
-                pathname === href && "underline",
+                "text-heading1-sb hover:text-purple-60 cursor-pointer transition-colors",
+                pathname === href ? "text-purple-60" : "text-black",
               )}
             >
               {label}

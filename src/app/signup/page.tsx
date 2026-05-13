@@ -49,6 +49,26 @@ const Page = () => {
   const [name, setName] = useState("");
   const [fields, setFields] = useState({ id: "", email: "", password: "", passwordConfirm: "" });
 
+  const emptyFields = { id: "", email: "", password: "", passwordConfirm: "" };
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    setTeam("");
+    setName("");
+    setFields(emptyFields);
+  };
+
+  const handleTeamChange = (value: string) => {
+    setTeam(value);
+    setName("");
+    setFields(emptyFields);
+  };
+
+  const handleNameChange = (value: string) => {
+    setName(value);
+    setFields(emptyFields);
+  };
+
   const nameOptions = (NAME_MAP[team]?.[activeTab] ?? []).map(n => ({ label: n, value: n }));
 
   const isFormValid = !!team && !!name && Object.values(fields).every(v => v.trim() !== "");
@@ -58,19 +78,24 @@ const Page = () => {
       <h1 className="text-body1-sb md:text-heading1-sb text-purple-60 pb-8">SIGNUP</h1>
       <div className="flex flex-col gap-3 pb-6">
         <h3 className="md:text-body2-m text-caption2-m text-black">파트 *</h3>
-        <TabToggle tabs={TABS} value={activeTab} onChange={setActiveTab} />
+        <TabToggle tabs={TABS} value={activeTab} onChange={handleTabChange} />
       </div>
       <div className="flex flex-row gap-3 md:justify-between">
         <div className="flex flex-col gap-3">
           <h3 className="md:text-body2-m text-caption2-m text-black">팀명 *</h3>
-          <DropDown options={TEAM_OPTIONS} value={team} onChange={setTeam} placeholder="팀명" />
+          <DropDown
+            options={TEAM_OPTIONS}
+            value={team}
+            onChange={handleTeamChange}
+            placeholder="팀명"
+          />
         </div>
         <div className="relative flex flex-col gap-3">
           <h3 className="md:text-body2-m text-caption2-m text-black">이름 *</h3>
           <DropDown
             options={nameOptions}
             value={name}
-            onChange={setName}
+            onChange={handleNameChange}
             placeholder="이름"
             disabled={!team}
           />

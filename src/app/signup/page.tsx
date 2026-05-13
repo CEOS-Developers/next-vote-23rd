@@ -88,13 +88,20 @@ const Page = () => {
         </div>
       </div>
       <div className="flex flex-col gap-10 pt-10 pb-12">
-        {FIELDS.map(({ key, label, placeholder }) => {
+        {FIELDS.map(({ key, label, placeholder, type }) => {
           const hasCheckButton = key === "id" || key === "email";
           return (
             <div key={key} className="flex flex-row items-center justify-between">
-              <h3 className="md:text-body2-m text-caption2-m w-20 text-black">{label}</h3>
+              <label
+                htmlFor={`signup-${key}`}
+                className="md:text-body2-m text-caption2-m w-20 text-black"
+              >
+                {label}
+              </label>
               <div className="relative flex-1">
                 <InputField
+                  id={`signup-${key}`}
+                  type={type}
                   placeholder={placeholder}
                   value={fields[key as keyof typeof fields]}
                   onChange={e => setFields(prev => ({ ...prev, [key]: e.target.value }))}

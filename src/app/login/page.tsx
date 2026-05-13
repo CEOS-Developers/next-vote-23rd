@@ -9,12 +9,16 @@ const page = () => {
       <h1 className="text-body1-sb md:text-heading1-sb text-purple-60">LOGIN</h1>
       <div className="flex flex-col gap-8 pt-8 pb-15">
         <div className="flex flex-row items-center justify-between">
-          <span className="text-body2-m md:text-heading2-m w-30">아이디</span>
-          <InputField placeholder="아이디를 입력해주세요" />
+          <label htmlFor="login-id" className="text-body2-m md:text-heading2-m w-30">
+            아이디
+          </label>
+          <InputField id="login-id" placeholder="아이디를 입력해주세요" />
         </div>
         <div className="flex flex-row items-center justify-between">
-          <span className="text-body2-m md:text-heading2-m w-30">비밀번호</span>
-          <InputField placeholder="비밀번호를 입력해주세요" />
+          <label htmlFor="login-password" className="text-body2-m md:text-heading2-m w-30">
+            비밀번호
+          </label>
+          <InputField id="login-password" type="password" placeholder="비밀번호를 입력해주세요" />
         </div>
       </div>
       <CTA label="로그인하기" />

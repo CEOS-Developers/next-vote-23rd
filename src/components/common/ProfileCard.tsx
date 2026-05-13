@@ -1,4 +1,4 @@
-import Profile from "@/assets/icons/icon_profile.svg";
+import ProfileIcon from "@/assets/icons/icon_profile_regular.svg";
 
 interface ProfileProps {
   name: string;
@@ -9,7 +9,7 @@ const ProfileCard = ({ name, university }: ProfileProps) => {
   return (
     <div className="bg-purple-10 rounded-12 flex w-full items-center gap-3 border border-purple-50 px-2 py-2 md:px-3">
       <div>
-        <Profile className="size-12 text-purple-50" />
+        <ProfileIcon className="size-12 text-purple-50" />
       </div>
       <div className="flex flex-col items-start gap-1">
         <div className="text-caption1-sb md:text-body1-sb text-black">{name}</div>

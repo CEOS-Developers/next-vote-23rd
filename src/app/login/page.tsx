@@ -6,7 +6,7 @@ import InputField from "@/components/common/InputField";
 const page = () => {
   return (
     <div>
-      <p className="text-body1-sb md:text-heading1-sb text-purple-60">LOGIN</p>
+      <h1 className="text-body1-sb md:text-heading1-sb text-purple-60">LOGIN</h1>
       <div className="flex flex-col gap-8 pt-8 pb-15">
         <div className="flex flex-row items-center justify-between">
           <span className="text-body2-m md:text-heading2-m w-30">아이디</span>

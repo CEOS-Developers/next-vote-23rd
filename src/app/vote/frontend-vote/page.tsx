@@ -1,11 +1,13 @@
 "use client";
 import { frontendMembers } from "@/data/members";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "@/components/common/Button";
 import CTA from "@/components/common/CTA";
 import Modal from "@/components/common/Modal";
 
 const page = () => {
+  const router = useRouter();
   const [selectedMember, setSelectedMember] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
@@ -53,7 +55,15 @@ const page = () => {
             <CTA label="투표하기" disabled={!isVoteEnabled} onClick={handleVoteClick} />
           </div>
         )}
-        <button type="button" className="text-caption2-m md:text-body2-m mt-3 cursor-pointer">
+        <button
+          type="button"
+          onClick={() =>
+            router.push(
+              `/vote/frontend-vote/ranking?selected=${encodeURIComponent(selectedMember)}`,
+            )
+          }
+          className="text-caption2-m md:text-body2-m mt-3 cursor-pointer"
+        >
           현재 투표 순위 보러 가기
         </button>
       </div>

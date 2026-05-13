@@ -1,14 +1,17 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import CTA from "@/components/common/CTA";
 import DropDown from "@/components/common/DropDown";
 import InputField from "@/components/common/InputField";
+import Modal from "@/components/common/Modal";
 import TabToggle from "@/components/common/TabToggle";
 import { FIELDS, NAME_MAP, TABS, TEAM_OPTIONS } from "@/constants/signup";
 
 const Page = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("FE");
   const [team, setTeam] = useState("");
   const [name, setName] = useState("");
@@ -36,10 +39,22 @@ const Page = () => {
 
   const nameOptions = (NAME_MAP[team]?.[activeTab] ?? []).map(n => ({ label: n, value: n }));
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const isFormValid = !!team && !!name && Object.values(fields).every(v => v.trim() !== "");
 
   return (
     <div>
+      {isModalOpen && (
+        <Modal
+          buttons="single"
+          title="회원가입이 완료되었습니다."
+          description="환영합니다! 로그인 후 투표를 진행해보세요."
+          rightLabel="로그인하러 가기"
+          onConfirm={() => router.push("/login")}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
       <h1 className="text-body1-sb md:text-heading1-sb text-purple-60 pb-8">SIGNUP</h1>
       <div className="flex flex-col gap-3 pb-6">
         <h3 className="md:text-body2-m text-caption2-m text-black">파트 *</h3>
@@ -83,7 +98,7 @@ const Page = () => {
           </div>
         ))}
       </div>
-      <CTA label="가입하기" disabled={!isFormValid} />
+      <CTA label="가입하기" disabled={!isFormValid} onClick={() => setIsModalOpen(true)} />
     </div>
   );
 };

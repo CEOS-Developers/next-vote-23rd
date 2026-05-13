@@ -1,3 +1,11 @@
+---
+name: 기능 요청
+about: 새로운 기능 추가 또는 개선 사항을 작성합니다.
+title: "[FEAT] "
+labels: enhancement
+assignees: ""
+---
+
 ## 📌 작업 내용
 
 <!-- 어떤 작업을 할 예정인지 간단히 설명해주세요. -->

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import DitdaIcon from "@/assets/icons/icon_ditda_regular.svg";
@@ -10,6 +11,7 @@ import { NAV_ITEMS } from "@/constants/navigation";
 import { cn } from "@/lib/utils/cn";
 
 const Header = () => {
+  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const Header = () => {
             <Link
               key={href}
               href={href}
-              className="text-purple-60 text-heading1-sb transition-colors hover:underline"
+              className={`text-heading1-sb hover:text-purple-60 transition-colors ${pathname === href ? "text-purple-60" : "text-black"}`}
             >
               {label}
             </Link>
@@ -68,7 +70,10 @@ const Header = () => {
               key={href}
               href={href}
               onClick={() => setSidebarOpen(false)}
-              className="text-heading1-sb text-purple-60 cursor-pointer transition-colors hover:underline"
+              className={cn(
+                "text-heading1-sb text-purple-60 cursor-pointer transition-colors hover:underline",
+                pathname === href && "underline",
+              )}
             >
               {label}
             </Link>

@@ -191,6 +191,12 @@ export default function Signup() {
           />
         </label>
 
+        <button
+          type="submit"
+          className="w-full py-4 bg-black text-white text-label1 cursor-pointer mt-[3.125rem]"
+        >
+          회원가입하기
+        </button>
       </form>
     </main>
   );

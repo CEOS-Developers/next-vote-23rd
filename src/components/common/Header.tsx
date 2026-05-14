@@ -16,15 +16,14 @@ import { cn } from "@/lib/utils/cn";
 const AUTH_CHANGE_EVENT = "auth-change";
 
 const subscribeAuth = (callback: () => void) => {
-  window.addEventListener("storage", callback);
   window.addEventListener(AUTH_CHANGE_EVENT, callback);
   return () => {
-    window.removeEventListener("storage", callback);
     window.removeEventListener(AUTH_CHANGE_EVENT, callback);
   };
 };
 
-const getAuthSnapshot = () => !!localStorage.getItem("accessToken");
+const getAuthSnapshot = () =>
+  document.cookie.split(";").some(c => c.trim().startsWith("accessToken="));
 const getAuthServerSnapshot = () => false;
 
 export const dispatchAuthChange = () => {
@@ -59,7 +58,6 @@ const Header = () => {
     try {
       await postLogout();
     } finally {
-      localStorage.removeItem("accessToken");
       await deleteAuthCookie();
       dispatchAuthChange();
       alert("로그아웃 되었습니다!");

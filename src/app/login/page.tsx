@@ -12,6 +12,7 @@ import { dispatchAuthChange } from "@/components/common/Header";
 import InputField from "@/components/common/InputField";
 import Modal from "@/components/common/Modal";
 import { LoginFormValues, loginSchema } from "@/constants/loginSchema";
+import { setAccessToken } from "@/lib/apis/api";
 import { postLogin } from "@/lib/apis/auth";
 
 const Page = () => {
@@ -44,7 +45,7 @@ const Page = () => {
         setLoginError(res.message ?? "아이디 또는 비밀번호를 확인해주세요.");
         return;
       }
-      localStorage.setItem("accessToken", res.result.accessToken);
+      setAccessToken(res.result.accessToken);
       await setAuthCookie(res.result.accessToken);
       dispatchAuthChange();
       setIsModalOpen(true);

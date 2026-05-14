@@ -14,6 +14,9 @@ import TabToggle from "@/components/common/TabToggle";
 import { EMAIL_REGEX, ID_REGEX } from "@/constants/regex";
 import { FIELDS, NAME_MAP, TABS, TEAM_OPTIONS } from "@/constants/signup";
 import { SignupFormValues, signupSchema } from "@/constants/signupSchema";
+import { postCheckDuplicateEmail, postCheckDuplicateId } from "@/lib/apis/auth";
+
+type CheckStatus = "idle" | "available" | "duplicate";
 
 const Page = () => {
   const router = useRouter();
@@ -21,6 +24,10 @@ const Page = () => {
   const [team, setTeam] = useState("");
   const [name, setName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [idCheckStatus, setIdCheckStatus] = useState<CheckStatus>("idle");
+  const [emailCheckStatus, setEmailCheckStatus] = useState<CheckStatus>("idle");
+  const [isIdChecking, setIsIdChecking] = useState(false);
+  const [isEmailChecking, setIsEmailChecking] = useState(false);
 
   const {
     register,
@@ -41,24 +48,70 @@ const Page = () => {
     setTeam("");
     setName("");
     reset();
+    setIdCheckStatus("idle");
+    setEmailCheckStatus("idle");
   };
 
   const handleTeamChange = (value: string) => {
     setTeam(value);
     setName("");
     reset();
+    setIdCheckStatus("idle");
+    setEmailCheckStatus("idle");
   };
 
   const handleNameChange = (value: string) => {
     setName(value);
     reset();
+    setIdCheckStatus("idle");
+    setEmailCheckStatus("idle");
   };
 
   const nameOptions = (NAME_MAP[team]?.[activeTab] ?? []).map(n => ({ label: n, value: n }));
 
+  const handleCheckId = async () => {
+    setIsIdChecking(true);
+    try {
+      const res = await postCheckDuplicateId({ username: idValue });
+      setIdCheckStatus(res.success ? "available" : "duplicate");
+    } catch {
+      setIdCheckStatus("duplicate");
+    } finally {
+      setIsIdChecking(false);
+    }
+  };
+
+  const handleCheckEmail = async () => {
+    setIsEmailChecking(true);
+    try {
+      const res = await postCheckDuplicateEmail({ email: emailValue });
+      setEmailCheckStatus(res.success ? "available" : "duplicate");
+    } catch {
+      setIdCheckStatus("duplicate");
+    } finally {
+      setIsEmailChecking(false);
+    }
+  };
+
+  const getCheckStatus = (key: string) => (key === "id" ? idCheckStatus : emailCheckStatus);
+
+  const getCheckErrorMessage = (key: string) => {
+    const status = getCheckStatus(key);
+    if (status === "duplicate")
+      return key === "id" ? "이미 사용 중인 아이디입니다." : "이미 사용 중인 이메일입니다.";
+    return errors[key as keyof SignupFormValues]?.message;
+  };
+
   const onSubmit = () => {
     setIsModalOpen(true);
   };
+
+  const isFormReady =
+    !!team &&
+    !!name &&
+    isValid &&
+    idCheckStatus === "available" &&
+    emailCheckStatus === "available";
 
   return (
     <div>
@@ -107,8 +160,12 @@ const Page = () => {
         <div className="flex flex-col gap-10 pt-10 pb-12">
           {FIELDS.map(({ key, label, placeholder, type }) => {
             const hasCheckButton = key === "id" || key === "email";
+            const checkStatus = getCheckStatus(key);
+            const isChecking = key === "id" ? isIdChecking : isEmailChecking;
             const isCheckDisabled =
-              key === "id" ? !ID_REGEX.test(idValue) : !EMAIL_REGEX.test(emailValue);
+              key === "id"
+                ? !ID_REGEX.test(idValue) || isIdChecking
+                : !EMAIL_REGEX.test(emailValue) || isEmailChecking;
             return (
               <div key={key} className="flex flex-row items-center justify-between">
                 <label
@@ -122,14 +179,28 @@ const Page = () => {
                     id={`signup-${key}`}
                     type={type}
                     placeholder={placeholder}
-                    errorMessage={errors[key as keyof SignupFormValues]?.message}
+                    errorMessage={getCheckErrorMessage(key)}
                     className={hasCheckButton ? "pr-24" : undefined}
-                    {...register(key as keyof SignupFormValues)}
+                    {...register(key as keyof SignupFormValues, {
+                      onChange: () => {
+                        if (key === "id") setIdCheckStatus("idle");
+                        if (key === "email") setEmailCheckStatus("idle");
+                      },
+                    })}
                   />
+                  {hasCheckButton && checkStatus === "available" && (
+                    <p className="text-caption2-m md:text-body2-m absolute top-full mt-1 text-green-500">
+                      사용 가능합니다.
+                    </p>
+                  )}
                   {hasCheckButton && (
                     <div className="absolute top-[45%] right-0 -translate-y-1/2">
-                      <Button variant="check" disabled={isCheckDisabled}>
-                        중복 확인
+                      <Button
+                        variant="check"
+                        disabled={isCheckDisabled}
+                        onClick={key === "id" ? handleCheckId : handleCheckEmail}
+                      >
+                        {isChecking ? "확인 중..." : "중복 확인"}
                       </Button>
                     </div>
                   )}
@@ -138,7 +209,7 @@ const Page = () => {
             );
           })}
         </div>
-        <CTA label="가입하기" disabled={!team || !name || !isValid} />
+        <CTA label="가입하기" disabled={!isFormReady} />
       </form>
     </div>
   );

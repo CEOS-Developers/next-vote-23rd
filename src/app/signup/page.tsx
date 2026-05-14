@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { HTTPError } from "ky";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
@@ -120,8 +121,8 @@ const Page = () => {
       }
       setIsModalOpen(true);
     } catch (err) {
-      if (err instanceof Error && "response" in err) {
-        const body = (await (err as Error & { response: Response }).response.json()) as ApiResponse;
+      if (err instanceof HTTPError) {
+        const body = (await err.response.json()) as ApiResponse;
         setSubmitError(body.message ?? "회원가입에 실패했습니다.");
       } else {
         setSubmitError("회원가입에 실패했습니다. 다시 시도해주세요.");

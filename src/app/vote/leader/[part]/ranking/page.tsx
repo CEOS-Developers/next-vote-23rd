@@ -1,14 +1,32 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Chip from "@/components/common/Chip";
-import { frontendVoteRankings } from "@/data/members";
+import { backendVoteRankings, frontendVoteRankings } from "@/data/members";
+
+const rankingConfigs = {
+  frontend: {
+    title: "현재 프론트엔드 파트장 투표 순위",
+    rankings: frontendVoteRankings,
+  },
+  backend: {
+    title: "현재 백엔드 파트장 투표 순위",
+    rankings: backendVoteRankings,
+  },
+} as const;
+
+type LeaderPart = keyof typeof rankingConfigs;
 
 const page = () => {
+  const params = useParams();
   const searchParams = useSearchParams();
+
+  const part = params.part as LeaderPart;
+  const rankingConfig = rankingConfigs[part];
+
   const selectedMember = searchParams.get("selected");
 
-  const updatedRankings = frontendVoteRankings
+  const updatedRankings = rankingConfig.rankings
     .map(item => ({
       ...item,
       voteCount: item.label === selectedMember ? item.voteCount + 1 : item.voteCount,
@@ -23,7 +41,7 @@ const page = () => {
     <div className="min-h-screen bg-white px-2 pt-21">
       <div className="flex w-full flex-col">
         <h1 className="text-body1-sb md:text-heading1-sb mb-2 text-purple-50 md:mb-3">
-          현재 프론트엔드 파트장 투표 순위
+          {rankingConfig.title}
         </h1>
 
         <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3 md:gap-x-8">

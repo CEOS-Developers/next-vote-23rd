@@ -31,7 +31,7 @@ const page = () => {
   return (
     <div>
       <div className="flex w-full flex-col">
-        <h1 className="text-body1-sb md:text-heading1-sb mb-2 text-purple-50 md:mb-3">
+        <h1 className="text-body1-sb md:text-heading1-sb mb-5 text-purple-50 md:mb-10">
           23RD CEOS PROJECT
         </h1>
 

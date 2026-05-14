@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Chip from "@/components/common/Chip";
 import { backendVoteRankings, frontendVoteRankings } from "@/data/members";
@@ -17,7 +18,7 @@ const rankingConfigs = {
 
 type LeaderPart = keyof typeof rankingConfigs;
 
-const page = () => {
+const RankingContent = () => {
   const params = useParams();
   const searchParams = useSearchParams();
 
@@ -25,6 +26,14 @@ const page = () => {
   const rankingConfig = rankingConfigs[part];
 
   const selectedMember = searchParams.get("selected");
+
+  if (!rankingConfig) {
+    return (
+      <div className="min-h-screen bg-white px-2 pt-21">
+        <p className="text-body1-sb text-black">존재하지 않는 투표입니다.</p>
+      </div>
+    );
+  }
 
   const updatedRankings = rankingConfig.rankings
     .map(item => ({
@@ -46,8 +55,10 @@ const page = () => {
 
         <div className="grid w-full grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3 md:gap-x-8">
           {updatedRankings.map(item => (
-            <div key={item.rank} className="flex min-w-max items-center gap-3">
-              <span className="text-body1-sb md:text-heading1-sb text-purple-50">{item.rank}</span>
+            <div key={item.label} className="flex min-w-max items-center gap-5">
+              <span className="text-body1-sb md:text-heading1-sb w-8 text-right text-purple-50">
+                {item.rank}
+              </span>
 
               <Chip
                 label={item.label}
@@ -59,6 +70,14 @@ const page = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const page = () => {
+  return (
+    <Suspense fallback={null}>
+      <RankingContent />
+    </Suspense>
   );
 };
 

@@ -8,7 +8,7 @@ import { demoVoteRankings } from "@/data/members";
 
 const Page = () => {
   const [selectedMember] = useState<string | null>(() =>
-    sessionStorage.getItem(STORAGE_KEY.DEMODAY),
+    typeof window !== "undefined" ? sessionStorage.getItem(STORAGE_KEY.DEMODAY) : null,
   );
 
   const updatedRankings = demoVoteRankings

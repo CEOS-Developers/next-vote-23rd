@@ -135,7 +135,7 @@ export default function Signup() {
         })}
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-[1.88rem]">
+      <form onSubmit={handleSubmit} className="flex flex-col">
         <div className="grid grid-cols-2 gap-4">
           <Dropdown
             label="팀"
@@ -154,8 +154,8 @@ export default function Signup() {
           />
         </div>
 
-        <label className="flex items-center">
-          <span className="text-label1 w-24 shrink-0">아이디</span>
+        <label className="flex items-center mt-[1.88rem]">
+          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">아이디</span>
           <input
             type="text"
             value={username}
@@ -165,26 +165,23 @@ export default function Signup() {
           />
         </label>
 
-        <div className="flex flex-col">
-          <label className="flex items-center">
-            <span className="text-label1 w-24 shrink-0">이메일</span>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="이메일을 입력해 주세요"
-              className="flex-1 border-b border-black outline-none p-3"
-            />
-          </label>
-          {showEmailError && (
-            <p className="text-label2 text-red-500 mt-2 ml-24 pl-1">
-              이메일 형식이 올바르지 않습니다
-            </p>
-          )}
-        </div>
+        <label className="flex items-center mt-[1.88rem]">
+          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">이메일</span>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일을 입력해 주세요"
+            className="flex-1 border-b border-black outline-none p-3"
+          />
+        </label>
+
+        <p className="text-label2 text-red-500 py-2 ml-[140px] pl-3">
+          {showEmailError ? "이메일 형식이 올바르지 않습니다" : " "}
+        </p>
 
         <label className="flex items-center">
-          <span className="text-label1 w-24 shrink-0">비밀번호</span>
+          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">비밀번호</span>
           <input
             type="password"
             value={password}
@@ -194,27 +191,24 @@ export default function Signup() {
           />
         </label>
 
-        <div className="flex flex-col">
-          <label className="flex items-center">
-            <span className="text-label1 w-24 shrink-0">비밀번호 재확인</span>
-            <input
-              type="password"
-              value={passwordRe}
-              onChange={(e) => setPasswordRe(e.target.value)}
-              placeholder="비밀번호를 다시 입력해 주세요"
-              className="flex-1 border-b border-black outline-none p-3"
-            />
-          </label>
-          {showPasswordError && (
-            <p className="text-label2 text-red-500 mt-2 ml-24 pl-1">
-              비밀번호가 일치하지 않습니다
-            </p>
-          )}
-        </div>
+        <label className="flex items-center mt-[1.88rem]">
+          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">비밀번호 재확인</span>
+          <input
+            type="password"
+            value={passwordRe}
+            onChange={(e) => setPasswordRe(e.target.value)}
+            placeholder="비밀번호를 다시 입력해 주세요"
+            className="flex-1 border-b border-black outline-none p-3"
+          />
+        </label>
+
+        <p className="text-label2 text-red-500 py-2 ml-[140px] pl-3">
+          {showPasswordError ? "비밀번호가 일치하지 않습니다" : " "}
+        </p>
 
         <button
           type="submit"
-          className="w-full py-4 bg-black text-white text-label1 cursor-pointer mt-[3.125rem]"
+          className="w-full py-4 bg-black text-white text-label1 cursor-pointer mt-[0.69rem]"
         >
           회원가입하기
         </button>

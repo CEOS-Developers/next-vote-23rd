@@ -14,7 +14,8 @@ import TabToggle from "@/components/common/TabToggle";
 import { EMAIL_REGEX, ID_REGEX } from "@/constants/regex";
 import { FIELDS, NAME_MAP, TABS, TEAM_OPTIONS } from "@/constants/signup";
 import { SignupFormValues, signupSchema } from "@/constants/signupSchema";
-import { postCheckDuplicateEmail, postCheckDuplicateId } from "@/lib/apis/auth";
+import { postCheckDuplicateEmail, postCheckDuplicateId, postSignUp } from "@/lib/apis/auth";
+import type { ApiResponse } from "@/types/common";
 
 type CheckStatus = "idle" | "available" | "duplicate";
 
@@ -28,6 +29,8 @@ const Page = () => {
   const [emailCheckStatus, setEmailCheckStatus] = useState<CheckStatus>("idle");
   const [isIdChecking, setIsIdChecking] = useState(false);
   const [isEmailChecking, setIsEmailChecking] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -87,23 +90,44 @@ const Page = () => {
       const res = await postCheckDuplicateEmail({ email: emailValue });
       setEmailCheckStatus(res.success ? "available" : "duplicate");
     } catch {
-      setIdCheckStatus("duplicate");
+      setEmailCheckStatus("duplicate");
     } finally {
       setIsEmailChecking(false);
     }
   };
 
-  const getCheckStatus = (key: string) => (key === "id" ? idCheckStatus : emailCheckStatus);
-
   const getCheckErrorMessage = (key: string) => {
-    const status = getCheckStatus(key);
-    if (status === "duplicate")
-      return key === "id" ? "이미 사용 중인 아이디입니다." : "이미 사용 중인 이메일입니다.";
+    if (key === "id" && idCheckStatus === "duplicate") return "이미 사용 중인 아이디입니다.";
+    if (key === "email" && emailCheckStatus === "duplicate") return "이미 사용 중인 이메일입니다.";
     return errors[key as keyof SignupFormValues]?.message;
   };
 
-  const onSubmit = () => {
-    setIsModalOpen(true);
+  const onSubmit = async (data: SignupFormValues) => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await postSignUp({
+        part: activeTab,
+        team,
+        name,
+        username: data.id,
+        email: data.email,
+        password: data.password,
+      });
+      if (res.result?.accessToken) {
+        localStorage.setItem("accessToken", res.result.accessToken);
+      }
+      setIsModalOpen(true);
+    } catch (err) {
+      if (err instanceof Error && "response" in err) {
+        const body = (await (err as Error & { response: Response }).response.json()) as ApiResponse;
+        setSubmitError(body.message ?? "회원가입에 실패했습니다.");
+      } else {
+        setSubmitError("회원가입에 실패했습니다. 다시 시도해주세요.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormReady =
@@ -160,7 +184,7 @@ const Page = () => {
         <div className="flex flex-col gap-10 pt-10 pb-12">
           {FIELDS.map(({ key, label, placeholder, type }) => {
             const hasCheckButton = key === "id" || key === "email";
-            const checkStatus = getCheckStatus(key);
+            const checkStatus = key === "id" ? idCheckStatus : emailCheckStatus;
             const isChecking = key === "id" ? isIdChecking : isEmailChecking;
             const isCheckDisabled =
               key === "id"
@@ -209,7 +233,12 @@ const Page = () => {
             );
           })}
         </div>
-        <CTA label="가입하기" disabled={!isFormReady} />
+        {submitError && (
+          <p className="text-caption2-m md:text-body2-m text-point-1 pb-3 text-center">
+            {submitError}
+          </p>
+        )}
+        <CTA label="가입하기" disabled={!isFormReady || isSubmitting} />
       </form>
     </div>
   );

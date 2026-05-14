@@ -1,0 +1,27 @@
+@theme {
+  /* BlueScale */
+  --color-blue-secondary: #eff0ff;
+  --color-blue-primary: #504ef2;
+
+  /* GreenScale */
+  --color-green-secondary: #f9fdee;
+  --color-green-primary: #a6e007;
+
+  /* RedScale */
+  --color-red-secondary: #fff2f2;
+  --color-red-primary: #ff4545;
+
+  /* Common */
+  --color-white: #ffffff;
+
+  /* Grayscale */
+  --color-gray-1: #f6f6f9;
+  --color-gray-2: #eaeaef;
+  --color-gray-3: #c5c5c9;
+  --color-gray-4: #9a9aa0;
+  --color-gray-5: #7b7b80;
+  --color-gray-6: #585b60;
+  --color-gray-7: #3e3e44;
+  --color-gray-8: #2f2f35;
+  --color-gray-9: #212128;
+}

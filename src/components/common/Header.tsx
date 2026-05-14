@@ -12,6 +12,7 @@ import Modal from "@/components/common/Modal";
 import { NAV_ITEMS } from "@/constants/navigation";
 import { postLogout } from "@/lib/apis/auth";
 import { cn } from "@/lib/utils/cn";
+import { getCookieToken } from "@/lib/utils/cookie";
 
 const AUTH_CHANGE_EVENT = "auth-change";
 
@@ -22,8 +23,7 @@ const subscribeAuth = (callback: () => void) => {
   };
 };
 
-const getAuthSnapshot = () =>
-  document.cookie.split(";").some(c => c.trim().startsWith("accessToken="));
+const getAuthSnapshot = () => !!getCookieToken();
 const getAuthServerSnapshot = () => false;
 
 export const dispatchAuthChange = () => {

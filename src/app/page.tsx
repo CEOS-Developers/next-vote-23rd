@@ -8,6 +8,7 @@ import CTA from "@/components/common/CTA";
 import Modal from "@/components/common/Modal";
 import BackgroundGraphic from "@/components/home/BackgroundGraphic";
 import { VOTE_CATEGORIES } from "@/constants/home";
+import { getCookieToken } from "@/lib/utils/cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const Page = () => {
         <CTA
           label="투표하러 가기"
           onClick={() => {
-            if (document.cookie.split(";").some(c => c.trim().startsWith("accessToken="))) {
+            if (getCookieToken()) {
               router.push("/vote");
             } else {
               setModalOpen(true);

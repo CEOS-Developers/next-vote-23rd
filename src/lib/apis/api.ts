@@ -1,5 +1,6 @@
 import ky from "ky";
 
+import { getCookieToken } from "@/lib/utils/cookie";
 import type { RefreshTokenResponse } from "@/types/auth";
 import { ERROR_CODE } from "@/types/errorCode";
 
@@ -35,13 +36,7 @@ const api = ky.create({
   hooks: {
     beforeRequest: [
       ({ request }) => {
-        const token =
-          getAccessToken() ??
-          document.cookie
-            .split(";")
-            .find(c => c.trim().startsWith("accessToken="))
-            ?.trim()
-            .substring("accessToken=".length);
+        const token = getAccessToken() ?? getCookieToken();
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);
         }

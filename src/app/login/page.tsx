@@ -6,14 +6,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { setAuthCookie } from "@/app/actions/auth";
 import CTA from "@/components/common/CTA";
 import { dispatchAuthChange } from "@/components/common/Header";
 import InputField from "@/components/common/InputField";
 import Modal from "@/components/common/Modal";
 import { LoginFormValues, loginSchema } from "@/constants/loginSchema";
-import { setAccessToken } from "@/lib/apis/api";
 import { postLogin } from "@/lib/apis/auth";
+import { saveToken } from "@/lib/utils/auth";
 
 const Page = () => {
   const router = useRouter();
@@ -45,8 +44,7 @@ const Page = () => {
         setLoginError(res.message ?? "아이디 또는 비밀번호를 확인해주세요.");
         return;
       }
-      setAccessToken(res.result.accessToken);
-      await setAuthCookie(res.result.accessToken);
+      await saveToken(res.result.accessToken);
       dispatchAuthChange();
       setIsModalOpen(true);
     } catch {

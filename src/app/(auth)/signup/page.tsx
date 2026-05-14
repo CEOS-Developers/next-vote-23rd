@@ -118,7 +118,7 @@ export default function Signup() {
   };
 
   return (
-    <main className="flex flex-col gap-[1.88rem] w-[550px]">
+    <main className="flex flex-col gap-[1.88rem] w-137.5">
       <p className="text-[20px] font-extrabold leading-[135%] tracking-[-0.02px] py-3 border-b">
         SIGNUP
       </p>
@@ -132,7 +132,7 @@ export default function Signup() {
               key={p}
               type="button"
               onClick={() => handlePartChange(p)}
-              className={`w-[275px] h-[51px] border border-black text-label2 cursor-pointer transition-colors ${rounded} ${
+              className={`w-68.75 h-12.75 border border-black text-label2 cursor-pointer transition-colors ${rounded} ${
                 selected ? "bg-black text-white" : "bg-white text-black"
               }`}
             >
@@ -177,7 +177,7 @@ export default function Signup() {
         </div>
 
         <label className="flex items-center mt-[1.88rem]">
-          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">
+          <span className="text-label1 w-35 shrink-0 whitespace-nowrap">
             아이디
           </span>
           <input
@@ -189,7 +189,7 @@ export default function Signup() {
         </label>
 
         <label className="flex items-center mt-[1.88rem]">
-          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">
+          <span className="text-label1 w-35 shrink-0 whitespace-nowrap">
             이메일
           </span>
           <input
@@ -200,12 +200,12 @@ export default function Signup() {
           />
         </label>
 
-        <p className="text-label2 text-red-500 py-2 ml-[140px] pl-3 min-h-[2.5rem]">
+        <p className="text-label2 text-red-500 py-2 ml-35 pl-3 min-h-10">
           {email.length > 0 && errors.email ? errors.email.message : " "}
         </p>
 
         <label className="flex items-center">
-          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">
+          <span className="text-label1 w-35 shrink-0 whitespace-nowrap">
             비밀번호
           </span>
           <input
@@ -217,7 +217,7 @@ export default function Signup() {
         </label>
 
         <label className="flex items-center mt-[1.88rem]">
-          <span className="text-label1 w-[140px] shrink-0 whitespace-nowrap">
+          <span className="text-label1 w-35 shrink-0 whitespace-nowrap">
             비밀번호 재확인
           </span>
           <input
@@ -228,7 +228,7 @@ export default function Signup() {
           />
         </label>
 
-        <p className="text-label2 text-red-500 py-2 ml-[140px] pl-3 min-h-[2.5rem]">
+        <p className="text-label2 text-red-500 py-2 ml-35 pl-3 min-h-10">
           {passwordRe.length > 0 && errors.passwordRe
             ? errors.passwordRe.message
             : " "}

@@ -66,7 +66,7 @@ export const backendVoteRankings: VoteRanking[] = [
   { rank: 4, label: "김태희", voteCount: 5 },
   { rank: 5, label: "안준석", voteCount: 4 },
   { rank: 6, label: "임종훈", voteCount: 3 },
-  { rank: 7, label: "오지승", voteCount: 3 },
+  { rank: 7, label: "오지송", voteCount: 3 },
   { rank: 8, label: "최승원", voteCount: 2 },
   { rank: 9, label: "최우혁", voteCount: 1 },
   { rank: 10, label: "황신애", voteCount: 0 },

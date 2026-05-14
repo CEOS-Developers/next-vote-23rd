@@ -27,7 +27,7 @@ const Page = () => {
     handleSubmit,
     reset,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     mode: "onChange",
@@ -138,7 +138,7 @@ const Page = () => {
             );
           })}
         </div>
-        <CTA label="가입하기" disabled={!team || !name} />
+        <CTA label="가입하기" disabled={!team || !name || !isValid} />
       </form>
     </div>
   );

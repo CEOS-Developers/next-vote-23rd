@@ -10,7 +10,7 @@ const InputField = ({ errorMessage, className, ...props }: InputFieldProps) => {
   const hasError = !!errorMessage;
 
   return (
-    <div className="flex w-full flex-col gap-1">
+    <div className="relative flex w-full flex-col gap-1">
       <input
         {...props}
         className={cn(
@@ -18,7 +18,11 @@ const InputField = ({ errorMessage, className, ...props }: InputFieldProps) => {
           className,
         )}
       />
-      {hasError && <p className="text-caption2-m md:text-body2-m text-point-1">{errorMessage}</p>}
+      {hasError && (
+        <p className="text-caption2-m md:text-body2-m text-point-1 absolute top-full mt-1">
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 };

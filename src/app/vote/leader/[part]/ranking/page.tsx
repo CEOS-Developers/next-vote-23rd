@@ -4,29 +4,16 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 import Chip from "@/components/common/Chip";
-import { backendVoteRankings, frontendVoteRankings } from "@/data/members";
-
-const rankingConfigs = {
-  frontend: {
-    title: "현재 프론트엔드 파트장 투표 순위",
-    rankings: frontendVoteRankings,
-  },
-  backend: {
-    title: "현재 백엔드 파트장 투표 순위",
-    rankings: backendVoteRankings,
-  },
-} as const;
-
-type LeaderPart = keyof typeof rankingConfigs;
+import { LEADER_CONFIGS, type LeaderPart, STORAGE_KEY } from "@/constants/vote";
 
 const Page = () => {
   const params = useParams();
 
   const part = params.part as LeaderPart;
-  const rankingConfig = rankingConfigs[part];
+  const rankingConfig = LEADER_CONFIGS[part];
 
   const [selectedMember] = useState<string | null>(() =>
-    sessionStorage.getItem(`selected-leader-${part}`),
+    sessionStorage.getItem(STORAGE_KEY.LEADER(part)),
   );
 
   const updatedRankings = rankingConfig.rankings
@@ -44,16 +31,14 @@ const Page = () => {
     <div>
       <div className="flex w-full flex-col">
         <h1 className="text-body1-sb md:text-heading1-sb mb-5 text-purple-50 md:mb-10">
-          {rankingConfig.title}
+          {rankingConfig.rankingTitle}
         </h1>
-
         <div className="grid w-full grid-cols-1 gap-x-10 gap-y-3 md:grid-cols-3 md:gap-x-8 md:gap-y-6">
           {updatedRankings.map(item => (
             <div key={item.label} className="flex min-w-max items-center gap-1">
               <span className="text-body1-sb md:text-heading1-sb w-8 text-right text-purple-50">
                 {item.rank}
               </span>
-
               <div className="[&_span:first-child]:mr-2">
                 <Chip
                   label={item.label}

@@ -3,11 +3,12 @@
 import { useState } from "react";
 
 import Chip from "@/components/common/Chip";
+import { STORAGE_KEY } from "@/constants/vote";
 import { demoVoteRankings } from "@/data/members";
 
 const Page = () => {
   const [selectedMember] = useState<string | null>(() =>
-    sessionStorage.getItem("selected-demoday"),
+    sessionStorage.getItem(STORAGE_KEY.DEMODAY),
   );
 
   const updatedRankings = demoVoteRankings
@@ -27,14 +28,12 @@ const Page = () => {
         <h1 className="text-body1-sb md:text-heading1-sb mb-5 text-purple-50 md:mb-10">
           현재 데모데이 아이디어 투표 순위
         </h1>
-
         <div className="grid w-full grid-cols-1 gap-x-10 gap-y-3 md:grid-cols-3 md:gap-x-8 md:gap-y-6">
           {updatedRankings.map(item => (
             <div key={item.label} className="flex min-w-max items-center gap-1">
               <span className="text-body1-sb md:text-heading1-sb w-8 text-right text-purple-50">
                 {item.rank}
               </span>
-
               <div className="[&_span:first-child]:mr-2">
                 <Chip
                   label={item.label}

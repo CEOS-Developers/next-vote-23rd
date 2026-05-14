@@ -5,15 +5,16 @@ import { useState } from "react";
 import Button from "@/components/common/Button";
 import CTA from "@/components/common/CTA";
 import Modal from "@/components/common/Modal";
+import { STORAGE_KEY } from "@/constants/vote";
 import { idea } from "@/data/members";
 
 const Page = () => {
   const router = useRouter();
   const [selectedMember, setSelectedMember] = useState<string>(
-    () => sessionStorage.getItem("selected-demoday") ?? "",
+    () => sessionStorage.getItem(STORAGE_KEY.DEMODAY) ?? "",
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasVoted, setHasVoted] = useState(() => !!sessionStorage.getItem("selected-demoday"));
+  const [hasVoted, setHasVoted] = useState(() => !!sessionStorage.getItem(STORAGE_KEY.DEMODAY));
 
   const isVoteEnabled = selectedMember !== "";
 
@@ -27,7 +28,7 @@ const Page = () => {
   };
 
   const handleConfirmVote = () => {
-    sessionStorage.setItem("selected-demoday", selectedMember);
+    sessionStorage.setItem(STORAGE_KEY.DEMODAY, selectedMember);
 
     setHasVoted(true);
     setIsModalOpen(false);
@@ -43,7 +44,6 @@ const Page = () => {
         <h1 className="text-body1-sb md:text-heading1-sb mb-5 text-purple-50 md:mb-10">
           23RD CEOS PROJECT
         </h1>
-
         <div className="mt-2 grid grid-cols-2 gap-x-2 gap-y-2 md:mt-3 md:gap-x-3 md:gap-y-3">
           {idea.map(member => (
             <Button
@@ -58,7 +58,6 @@ const Page = () => {
             </Button>
           ))}
         </div>
-
         {!hasVoted && (
           <div className="mt-10 md:mt-14">
             <CTA label="투표하기" disabled={!isVoteEnabled} onClick={handleVoteClick} />
@@ -67,12 +66,11 @@ const Page = () => {
         <button
           type="button"
           onClick={handleRankingClick}
-          className="text-caption2-m md:text-body2-m mt-3 cursor-pointer"
+          className="text-caption2-m md:text-body2-m text-gray-80 mt-3 cursor-pointer"
         >
           현재 투표 순위 보러 가기
         </button>
       </div>
-
       {isModalOpen && (
         <Modal
           buttons="double"

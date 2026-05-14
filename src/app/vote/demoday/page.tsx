@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 import Button from "@/components/common/Button";
 import CTA from "@/components/common/CTA";
@@ -10,13 +10,20 @@ import { idea } from "@/data/members";
 
 const Page = () => {
   const router = useRouter();
-  const [selectedMember, setSelectedMember] = useState<string>(
-    () => sessionStorage.getItem(STORAGE_KEY.DEMODAY) ?? "",
-  );
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasVoted, setHasVoted] = useState(() => !!sessionStorage.getItem(STORAGE_KEY.DEMODAY));
 
-  const isVoteEnabled = selectedMember !== "";
+  const storedMember = useSyncExternalStore(
+    () => () => {},
+    () => sessionStorage.getItem(STORAGE_KEY.DEMODAY) ?? "",
+    () => "",
+  );
+
+  const [selectedMember, setSelectedMember] = useState<string>("");
+  const [votedInSession, setVotedInSession] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const hasVoted = votedInSession || !!storedMember;
+  const displayMember = storedMember || selectedMember;
+  const isVoteEnabled = selectedMember !== "" && !hasVoted;
 
   const handleVoteClick = () => {
     if (!selectedMember) return;
@@ -29,8 +36,7 @@ const Page = () => {
 
   const handleConfirmVote = () => {
     sessionStorage.setItem(STORAGE_KEY.DEMODAY, selectedMember);
-
-    setHasVoted(true);
+    setVotedInSession(true);
     setIsModalOpen(false);
   };
 
@@ -48,7 +54,7 @@ const Page = () => {
           {idea.map(member => (
             <Button
               key={member.name}
-              isSelected={selectedMember === member.name}
+              isSelected={displayMember === member.name}
               onClick={() => {
                 if (hasVoted) return;
                 setSelectedMember(member.name);
@@ -66,9 +72,9 @@ const Page = () => {
         <button
           type="button"
           onClick={handleRankingClick}
-          className="text-caption2-m md:text-body2-m text-gray-80 mt-3 cursor-pointer"
+          className="text-caption2-m md:text-body2-m text-gray-80 hover:text-gray-70 mt-6 cursor-pointer"
         >
-          현재 투표 순위 보러 가기
+          현재 투표 순위 보러 가기 →
         </button>
       </div>
       {isModalOpen && (

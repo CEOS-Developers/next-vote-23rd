@@ -72,9 +72,9 @@ const Page = () => {
         <button
           type="button"
           onClick={handleRankingClick}
-          className="text-caption2-m md:text-body2-m text-gray-80 mt-3 cursor-pointer"
+          className="text-caption2-m md:text-body2-m text-gray-80 hover:text-gray-70 mt-6 cursor-pointer"
         >
-          현재 투표 순위 보러 가기
+          현재 투표 순위 보러 가기 →
         </button>
         {isModalOpen && (
           <Modal

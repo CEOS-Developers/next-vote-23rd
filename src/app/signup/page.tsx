@@ -1,7 +1,9 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 
 import Button from "@/components/common/Button";
 import CTA from "@/components/common/CTA";
@@ -11,42 +13,52 @@ import Modal from "@/components/common/Modal";
 import TabToggle from "@/components/common/TabToggle";
 import { EMAIL_REGEX, ID_REGEX } from "@/constants/regex";
 import { FIELDS, NAME_MAP, TABS, TEAM_OPTIONS } from "@/constants/signup";
+import { SignupFormValues, signupSchema } from "@/constants/signupSchema";
 
 const Page = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("FE");
   const [team, setTeam] = useState("");
   const [name, setName] = useState("");
-  const [fields, setFields] = useState({ id: "", email: "", password: "", passwordConfirm: "" });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const emptyFields = { id: "", email: "", password: "", passwordConfirm: "" };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<SignupFormValues>({
+    resolver: zodResolver(signupSchema),
+    mode: "onChange",
+  });
+
+  const idValue = useWatch({ control, name: "id", defaultValue: "" });
+  const emailValue = useWatch({ control, name: "email", defaultValue: "" });
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     setTeam("");
     setName("");
-    setFields(emptyFields);
+    reset();
   };
 
   const handleTeamChange = (value: string) => {
     setTeam(value);
     setName("");
-    setFields(emptyFields);
+    reset();
   };
 
   const handleNameChange = (value: string) => {
     setName(value);
-    setFields(emptyFields);
+    reset();
   };
 
   const nameOptions = (NAME_MAP[team]?.[activeTab] ?? []).map(n => ({ label: n, value: n }));
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const isIdValid = ID_REGEX.test(fields.id);
-  const isEmailValid = EMAIL_REGEX.test(fields.email);
-
-  const isFormValid = !!team && !!name && Object.values(fields).every(v => v.trim() !== "");
+  const onSubmit = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <div>
@@ -91,39 +103,43 @@ const Page = () => {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-10 pt-10 pb-12">
-        {FIELDS.map(({ key, label, placeholder, type }) => {
-          const hasCheckButton = key === "id" || key === "email";
-          return (
-            <div key={key} className="flex flex-row items-center justify-between">
-              <label
-                htmlFor={`signup-${key}`}
-                className="md:text-body2-m text-caption2-m w-20 text-black"
-              >
-                {label}
-              </label>
-              <div className="relative flex-1">
-                <InputField
-                  id={`signup-${key}`}
-                  type={type}
-                  placeholder={placeholder}
-                  value={fields[key as keyof typeof fields]}
-                  onChange={e => setFields(prev => ({ ...prev, [key]: e.target.value }))}
-                  className={hasCheckButton ? "pr-24" : undefined}
-                />
-                {hasCheckButton && (
-                  <div className="absolute top-[45%] right-0 -translate-y-1/2">
-                    <Button variant="check" disabled={key === "id" ? !isIdValid : !isEmailValid}>
-                      중복 확인
-                    </Button>
-                  </div>
-                )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-10 pt-10 pb-12">
+          {FIELDS.map(({ key, label, placeholder, type }) => {
+            const hasCheckButton = key === "id" || key === "email";
+            const isCheckDisabled =
+              key === "id" ? !ID_REGEX.test(idValue) : !EMAIL_REGEX.test(emailValue);
+            return (
+              <div key={key} className="flex flex-row items-center justify-between">
+                <label
+                  htmlFor={`signup-${key}`}
+                  className="md:text-body2-m text-caption2-m w-20 text-black"
+                >
+                  {label}
+                </label>
+                <div className="relative flex-1">
+                  <InputField
+                    id={`signup-${key}`}
+                    type={type}
+                    placeholder={placeholder}
+                    errorMessage={errors[key as keyof SignupFormValues]?.message}
+                    className={hasCheckButton ? "pr-24" : undefined}
+                    {...register(key as keyof SignupFormValues)}
+                  />
+                  {hasCheckButton && (
+                    <div className="absolute top-[45%] right-0 -translate-y-1/2">
+                      <Button variant="check" disabled={isCheckDisabled}>
+                        중복 확인
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-      <CTA label="가입하기" disabled={!isFormValid} onClick={() => setIsModalOpen(true)} />
+            );
+          })}
+        </div>
+        <CTA label="가입하기" disabled={!team || !name} />
+      </form>
     </div>
   );
 };

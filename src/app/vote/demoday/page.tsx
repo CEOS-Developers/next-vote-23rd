@@ -80,7 +80,7 @@ const Page = () => {
       {isModalOpen && (
         <Modal
           buttons="double"
-          title={`투표는 분야별 1회만 가능하며, 제출 후에는 수정이 어렵습니다.`}
+          title={`투표는 분야별 1회만 가능하며,\n제출 후에는 수정이 어렵습니다.`}
           description="투표하시겠습니까?"
           leftLabel="아니오"
           rightLabel="예"

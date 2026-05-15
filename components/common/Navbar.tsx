@@ -38,7 +38,7 @@ export default function Navbar() {
   const user = MOCK_USER;
 
   return (
-    <nav className="w-[186px] h-screen flex flex-col bg-white shrink-0 font-pretendard">
+    <nav className="absolute w-[186px] h-screen flex flex-col bg-white shrink-0 font-pretendard">
       {/* 로고 */}
       <div className="flex justify-center items-center px-7 py-10">
         <Logo className="w-[129px] h-[58px]" />

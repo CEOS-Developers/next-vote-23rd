@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import Button from "@/components/common/Button";
 import { CompleteBadge } from "@/components/common/CompleteBadge";
@@ -13,6 +14,7 @@ interface VoteClientProps {
 }
 
 export default function VoteClient({ initialPoll }: VoteClientProps) {
+  const router = useRouter();
   const [poll, setPoll] = useState<VotePoll>(initialPoll);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -51,8 +53,8 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-1 py-10">
-      <div className="app-container flex flex-col gap-[52px]">
+    <div className="min-h-screen bg-gray-1">
+      <div className="app-container flex flex-col gap-[52px] pt-[10vh] pb-10">
         <header className="flex items-center justify-between self-stretch">
           <h1 className="neurimbo-head text-center text-blue-primary">
             CEOS VOTE
@@ -74,11 +76,11 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
         </header>
 
         <main className="flex flex-col items-end gap-[50px] self-stretch">
-          <section className="scrollbar-hidden flex h-[334px] items-start gap-3 self-stretch overflow-x-auto overflow-y-hidden">
+          <section className="scrollbar-hidden flex h-[350px] items-start gap-3 self-stretch overflow-x-auto overflow-y-hidden py-2">
             {poll.candidates.map((candidate) => (
               <article
                 key={candidate.id}
-                className="flex h-full w-[312px] shrink-0 flex-col items-center justify-center gap-8 rounded-20 bg-fill-quaternary-default shadow-[0_0_24px_0_rgba(33,33,40,0.05)]"
+                className="flex h-[334px] w-[312px] shrink-0 flex-col items-center justify-center gap-8 rounded-20 bg-fill-quaternary-default shadow-[0_0_24px_0_rgba(33,33,40,0.05)] transition-all duration-200 ease-out hover:-translate-y-px hover:shadow-[0_6px_18px_0_rgba(33,33,40,0.05)]"
               >
                 <div className="flex self-stretch flex-col items-center justify-center gap-10 px-8 pt-8 pb-7">
                   <div className="flex self-stretch flex-col items-center justify-center gap-[30px]">
@@ -108,6 +110,7 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
                       styleType="secondary"
                       size="large"
                       className="w-full self-stretch"
+                      onClick={() => router.push(`/profile?candidate=${candidate.id}`)}
                     />
                   </div>
                 </div>

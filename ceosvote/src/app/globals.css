@@ -9,8 +9,7 @@
   }
 }
 
-@layer utilities {
-  .app-container {
+.app-container {
     width: min(1200px, calc(100% - 80px));
     margin-inline: auto;
   }
@@ -73,14 +72,199 @@
     );
   }
 
-  .button-secondary-gradient:active {
-    background: var(--color-fill-tertiary-default-pressed);
-  }
+.button-secondary-gradient:active {
+  background: var(--color-fill-tertiary-default-pressed);
+}
 
-  .vote-main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+.main-menu {
+  display: flex;
+  width: min(1116px, 100%);
+  height: 350px;
+  align-items: center;
+  gap: 32px;
+  align-self: center;
+  margin-top: calc(15vh - 52px);
+}
+
+.main-menu-card {
+  display: flex;
+  height: 350px;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: var(--radius-20);
+  background: var(--color-fill-quaternary-default);
+  padding: 32px;
+  transition:
+    box-shadow 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+.main-menu-card:hover {
+  box-shadow: var(--shadow-main-card-hover);
+  transform: translateY(-1px);
+}
+
+.main-menu-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-10);
+  background: var(--color-green-secondary);
+  padding: 8px;
+}
+
+.main-menu-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  align-self: stretch;
+  padding-left: 2px;
+  color: var(--color-gray-8);
+  text-align: center;
+}
+
+.about-panel {
+  display: flex;
+  width: min(720px, 100%);
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 28px;
+  margin-top: calc(15vh - 52px);
+  border-radius: var(--radius-20);
+  background: var(--color-background-contents-default-white);
+  box-shadow: var(--shadow-card-default);
+  padding: 64px 48px;
+}
+
+.about-title {
+  color: var(--color-blue-primary);
+  text-align: center;
+}
+
+.about-team-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.about-team-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-gray-9);
+  text-align: center;
+}
+
+.about-team-label {
+  flex-shrink: 0;
+  color: var(--color-gray-8);
+}
+
+.logout-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background-lightbox-default);
+}
+
+.logout-modal {
+  display: flex;
+  width: min(480px, calc(100% - 80px));
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-radius: var(--radius-20);
+  background: var(--color-fill-quaternary-default);
+  box-shadow: var(--shadow-modal);
+  padding-top: 48px;
+}
+
+.logout-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding-inline: 32px;
+}
+
+.logout-modal-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  gap: 20px;
+  padding-bottom: 24px;
+}
+
+.logout-modal-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  gap: 16px;
+}
+
+.logout-modal-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 8px;
+  text-align: center;
+}
+
+.logout-modal-title {
+  align-self: stretch;
+  color: var(--color-gray-9);
+}
+
+.logout-modal-description {
+  align-self: stretch;
+  color: var(--color-gray-4);
+}
+
+.logout-modal-action-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 10px;
+  padding: 0 32px 32px;
+}
+
+.logout-modal-actions {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.logout-modal-button {
+  min-width: 0;
+  flex: 1 0 0;
+}
+
+.logout-modal-cancel-button {
+  color: var(--color-red-primary);
+}
+
+.vote-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
     gap: 50px;
     align-self: stretch;
   }
@@ -255,9 +439,9 @@
     align-self: stretch;
   }
 
-  @media (max-width: 863px) {
-    .app-container {
-      width: min(350px, calc(100% - 40px));
+@media (max-width: 863px) {
+  .app-container {
+    width: min(350px, calc(100% - 40px));
     }
 
     .app-page-stack {
@@ -266,14 +450,66 @@
       padding-block-start: 40px;
     }
 
-    .vote-main {
-      align-items: center;
-      gap: 20px;
-    }
+  .vote-main {
+    align-items: center;
+    gap: 20px;
+  }
 
-    .candidate-list {
-      height: 305px;
-    }
+  .main-menu {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .main-menu-card {
+    width: 100%;
+    height: 215px;
+    flex: 0 0 215px;
+  }
+
+  .about-panel {
+    width: 100%;
+    gap: 20px;
+    padding: 48px 32px;
+  }
+
+  .about-title {
+    font-size: 28px;
+  }
+
+  .about-team-row {
+    align-items: center;
+  }
+
+  .logout-modal {
+    width: 305px;
+    flex-shrink: 0;
+    border-radius: var(--radius-16);
+    box-shadow: var(--shadow-modal-strong);
+    padding-top: 48px;
+  }
+
+  .logout-modal-content {
+    padding-inline: 32px;
+  }
+
+  .logout-modal-inner {
+    gap: 20px;
+    padding-bottom: 24px;
+  }
+
+  .logout-modal-action-container {
+    padding: 0 32px 32px;
+  }
+
+  .logout-modal-actions {
+    gap: 10px;
+  }
+
+  .candidate-list {
+    height: 305px;
+  }
 
     .candidate-card {
       width: 260px;
@@ -326,16 +562,39 @@
       align-self: stretch;
     }
 
-    .profile-info {
-      gap: 20px;
-    }
+  .profile-info {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 864px) and (max-width: 1279px) {
+  .main-menu {
+    width: 70%;
+    max-width: 100%;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
   }
 
-  .scrollbar-hidden {
-    scrollbar-width: none;
+  .main-menu-card {
+    height: 215px;
+    flex: 0 0 auto;
+    align-self: stretch;
   }
 
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+  .about-panel {
+    width: 70%;
+    max-width: 720px;
+    padding: 56px 40px;
   }
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
 }

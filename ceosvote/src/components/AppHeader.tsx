@@ -1,19 +1,44 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+
+import LogoutModal from "@/components/common/LogoutModal";
 import TextOnlyButton from "@/components/common/TextOnlyButton";
 
 export default function AppHeader() {
-  return (
-    <header className="app-header">
-      <h1 className="neurimbo-head app-header-title">CEOS VOTE</h1>
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-      <nav className="app-header-nav">
-        <TextOnlyButton label="투표하기" size="small" styleType="primary" />
-        <TextOnlyButton
-          label="로그아웃"
-          size="small"
-          styleType="secondary"
-          className="text-text-neutral-default hover:text-text-neutral-default"
-        />
-      </nav>
-    </header>
+  const closeLogoutModal = () => setIsLogoutModalOpen(false);
+
+  const handleLogout = () => {
+    closeLogoutModal();
+  };
+
+  return (
+    <>
+      <header className="app-header">
+        <Link href="/main" className="neurimbo-head app-header-title">
+          CEOS VOTE
+        </Link>
+
+        <nav className="app-header-nav">
+          <Link href="/vote">
+            <TextOnlyButton label="투표하기" size="small" styleType="primary" />
+          </Link>
+          <TextOnlyButton
+            label="로그아웃"
+            size="small"
+            styleType="secondary"
+            className="text-text-neutral-default hover:text-text-neutral-default"
+            onClick={() => setIsLogoutModalOpen(true)}
+          />
+        </nav>
+      </header>
+
+      {isLogoutModalOpen && (
+        <LogoutModal onCancel={closeLogoutModal} onConfirm={handleLogout} />
+      )}
+    </>
   );
 }

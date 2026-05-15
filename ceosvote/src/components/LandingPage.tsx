@@ -8,7 +8,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      router.push("/vote");
+      router.push("/main");
     }, 3000);
 
     return () => window.clearTimeout(timer);

@@ -14,4 +14,12 @@
     width: min(1200px, calc(100% - 80px));
     margin-inline: auto;
   }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
 }

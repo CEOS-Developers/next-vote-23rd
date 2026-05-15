@@ -4,7 +4,7 @@
   --color-blue-primary: #504ef2;
 
   /* GreenScale */
-  --color-green-secondary: #f9fdee;
+  --color-green-secondary: #def69c;
   --color-green-primary: #a6e007;
   --color-green-pressed: #95d400;
 
@@ -64,4 +64,5 @@
   --shadow-cta-secondary: 0 4px 12px rgb(33 33 40 / 12%);
   --shadow-card-default: 0 0 24px 0 rgb(33 33 40 / 5%);
   --shadow-card-hover: 0 6px 18px 0 rgb(33 33 40 / 5%);
+  --shadow-main-card-hover: 0 0 11.1px 0 rgb(0 0 0 / 25%);
 }

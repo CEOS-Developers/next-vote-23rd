@@ -20,6 +20,11 @@
   --font-suite: 'SUITE', ui-sans-serif, system-ui, sans-serif;
 
   /* Type System */
+  --text-headline1: 2rem;
+  --text-headline1--line-height: 135%;
+  --text-headline1--letter-spacing: -0.001em;
+  --text-headline1--font-weight: 800;
+
   --text-headline3: 1.5rem;
   --text-headline3--line-height: 135%;
   --text-headline3--letter-spacing: -0.001em;

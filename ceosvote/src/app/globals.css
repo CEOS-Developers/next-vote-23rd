@@ -127,6 +127,46 @@
   text-align: center;
 }
 
+.about-panel {
+  display: flex;
+  width: min(720px, 100%);
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 28px;
+  margin-top: calc(15vh - 52px);
+  border-radius: var(--radius-20);
+  background: var(--color-background-contents-default-white);
+  box-shadow: var(--shadow-card-default);
+  padding: 64px 48px;
+}
+
+.about-title {
+  color: var(--color-blue-primary);
+  text-align: center;
+}
+
+.about-team-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.about-team-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  color: var(--color-gray-9);
+  text-align: center;
+}
+
+.about-team-label {
+  flex-shrink: 0;
+  color: var(--color-gray-8);
+}
+
 .vote-main {
   display: flex;
   flex-direction: column;
@@ -334,6 +374,22 @@
     flex: 0 0 215px;
   }
 
+  .about-panel {
+    width: 100%;
+    gap: 20px;
+    padding: 48px 32px;
+  }
+
+  .about-title {
+    font-size: 28px;
+  }
+
+  .about-team-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
   .candidate-list {
     height: 305px;
   }
@@ -409,6 +465,12 @@
     height: 215px;
     flex: 0 0 auto;
     align-self: stretch;
+  }
+
+  .about-panel {
+    width: 70%;
+    max-width: 720px;
+    padding: 56px 40px;
   }
 }
 

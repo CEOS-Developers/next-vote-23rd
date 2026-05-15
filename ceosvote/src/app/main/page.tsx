@@ -11,7 +11,7 @@ const mainMenuItems = [
   },
   {
     label: "ABOUT US",
-    href: "#",
+    href: "/about",
     iconSrc: "/ic_about-circle.svg",
   },
 ];

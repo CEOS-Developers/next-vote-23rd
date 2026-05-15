@@ -12,7 +12,7 @@ interface IconOnlyButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const toneStyles: Record<IconOnlyButtonTone, string> = {
   light:
     "text-icon-neutral-assistive hover:bg-fill-hover hover:text-icon-neutral-default",
-  dark: "text-icon-neutral-default hover:bg-[rgba(255,255,255,0.05)] hover:text-icon-neutral-assistive",
+  dark: "text-icon-neutral-default hover:bg-fill-dark-hover hover:text-icon-neutral-assistive",
 };
 
 export default function IconOnlyButton({
@@ -27,7 +27,7 @@ export default function IconOnlyButton({
       type={type}
       aria-label="아이콘 버튼"
       className={clsx(
-        "flex h-[30px] w-[30px] items-center justify-center rounded-[10px] p-[3px]",
+        "flex h-[30px] w-[30px] items-center justify-center rounded-10 p-[3px]",
         buttonProps.disabled ? "cursor-not-allowed" : "cursor-pointer",
         toneStyles[tone],
         className,

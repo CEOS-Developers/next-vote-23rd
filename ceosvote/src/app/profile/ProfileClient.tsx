@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import AppHeader from "@/components/AppHeader";
 import IconOnlyButton from "@/components/common/IconOnlyButton";
-import TextOnlyButton from "@/components/common/TextOnlyButton";
 import type { CandidateProfile } from "@/types/profile";
 
 interface ProfileClientProps {
@@ -14,36 +14,18 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gray-1">
-      <div className="app-container flex flex-col items-start gap-[50px] pt-[10vh] pb-10">
-        <header className="flex items-center justify-between self-stretch">
-          <h1 className="neurimbo-head text-center text-blue-primary">
-            CEOS VOTE
-          </h1>
+    <div className="app-page">
+      <div className="app-container app-page-stack items-start max-[863px]:items-center">
+        <AppHeader />
 
-          <nav className="flex items-center justify-end gap-8">
-            <TextOnlyButton
-              label="투표하기"
-              size="small"
-              styleType="primary"
-            />
-            <TextOnlyButton
-              label="로그아웃"
-              size="small"
-              styleType="secondary"
-              className="text-black hover:text-black"
-            />
-          </nav>
-        </header>
-
-        <section className="relative flex flex-1 flex-col items-center gap-[30px] self-stretch rounded-20 bg-white px-8 pt-8 pb-7 shadow-[0_0_24px_0_rgba(33,33,40,0.05)]">
-            <div className="absolute top-8 right-8">
+        <section className="profile-card card-surface rounded-20">
+            <div className="profile-close-slot">
               <IconOnlyButton onClick={() => router.push("/vote")} />
             </div>
 
-            <div className="flex items-start justify-center gap-10 self-stretch">
-              <div className="flex flex-1 items-center gap-[30px] pr-[70px]">
-                <div className="flex h-[241px] w-[318px] items-center gap-2.5 overflow-hidden rounded-[5px]">
+            <div className="profile-top">
+              <div className="profile-media-info">
+                <div className="profile-image-frame">
                   <Image
                     src={profile.imageUrl}
                     alt={`${profile.name} 프로필`}
@@ -57,9 +39,9 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
                   />
                 </div>
 
-                <div className="flex flex-col items-start justify-center gap-[30px]">
+                <div className="profile-info">
                   <div className="flex items-center gap-1">
-                    <h2 className="text-h24-bold text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
+                    <h2 className="text-h24-bold text-gray-9 [font-feature-settings:'liga'_off,'clig'_off] max-[863px]:text-h28-bold">
                       {profile.name}
                     </h2>
                   </div>
@@ -74,11 +56,11 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
               </div>
             </div>
 
-            <div className="flex flex-col items-start justify-center gap-1 self-stretch">
-              <h3 className="text-t20-semibold text-center text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
+            <div className="profile-detail">
+              <h3 className="text-t20-semibold mobile-text-b16-semibold text-center text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
                 상세 정보:
               </h3>
-              <p className="self-stretch text-t20-reg leading-[160%] text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
+              <p className="self-stretch text-t20-reg-loose mobile-text-b16-med text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
                 {profile.description}
               </p>
             </div>
@@ -95,11 +77,11 @@ interface ProfileFieldProps {
 
 function ProfileField({ label, value }: ProfileFieldProps) {
   return (
-    <div className="flex items-center gap-1">
-      <span className="text-t20-semibold text-center text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
+    <div className="flex items-start gap-1">
+      <span className="shrink-0 text-t20-semibold mobile-text-b16-semibold text-left text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
         {label}
       </span>
-      <span className="text-t20-reg leading-[160%] text-center text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
+      <span className="min-w-0 flex-1 text-left text-t20-reg-loose mobile-text-b16-med text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
         {value}
       </span>
     </div>

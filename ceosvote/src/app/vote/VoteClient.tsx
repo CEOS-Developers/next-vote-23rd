@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import AppHeader from "@/components/AppHeader";
 import Button from "@/components/common/Button";
 import { CompleteBadge } from "@/components/common/CompleteBadge";
-import TextOnlyButton from "@/components/common/TextOnlyButton";
 import { resetVotePoll, submitVote } from "@/services/vote";
 import type { VotePoll, VoteResultItem } from "@/types/vote";
 
@@ -53,44 +53,26 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-1">
-      <div className="app-container flex flex-col gap-[52px] pt-[10vh] pb-10">
-        <header className="flex items-center justify-between self-stretch">
-          <h1 className="neurimbo-head text-center text-blue-primary">
-            CEOS VOTE
-          </h1>
+    <div className="app-page">
+      <div className="app-container app-page-stack">
+        <AppHeader />
 
-          <nav className="flex items-center justify-end gap-8">
-            <TextOnlyButton
-              label="투표하기"
-              size="small"
-              styleType="primary"
-            />
-            <TextOnlyButton
-              label="로그아웃"
-              size="small"
-              styleType="secondary"
-              className="text-black hover:text-black"
-            />
-          </nav>
-        </header>
-
-        <main className="flex flex-col items-end gap-[50px] self-stretch">
-          <section className="scrollbar-hidden flex h-[350px] items-start gap-3 self-stretch overflow-x-auto overflow-y-hidden py-2">
+        <main className="vote-main">
+          <section className="candidate-list scrollbar-hidden">
             {poll.candidates.map((candidate) => (
               <article
                 key={candidate.id}
-                className="flex h-[334px] w-[312px] shrink-0 flex-col items-center justify-center gap-8 rounded-20 bg-fill-quaternary-default shadow-[0_0_24px_0_rgba(33,33,40,0.05)] transition-all duration-200 ease-out hover:-translate-y-px hover:shadow-[0_6px_18px_0_rgba(33,33,40,0.05)]"
+                className="candidate-card card-surface card-hover rounded-20"
               >
-                <div className="flex self-stretch flex-col items-center justify-center gap-10 px-8 pt-8 pb-7">
-                  <div className="flex self-stretch flex-col items-center justify-center gap-[30px]">
+                <div className="candidate-card-shell">
+                  <div className="candidate-card-content">
                     <div className="flex flex-col items-center gap-2.5">
                       <div className="flex items-end justify-center gap-1">
-                        <h2 className="text-h24-bold text-center text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
+                        <h2 className="text-t20-semibold text-center text-gray-9 [font-feature-settings:'liga'_off,'clig'_off]">
                           {candidate.name}
                         </h2>
                       </div>
-                      <div className="h-[159px] w-[210px] overflow-hidden rounded-[5px] bg-gray-2">
+                      <div className="candidate-image-frame">
                         <Image
                           src={candidate.imageUrl}
                           alt={`${candidate.name} 프로필`}
@@ -109,8 +91,10 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
                       label="프로필 보기"
                       styleType="secondary"
                       size="large"
-                      className="w-full self-stretch"
-                      onClick={() => router.push(`/profile?candidate=${candidate.id}`)}
+                      className="w-full self-stretch max-[863px]:px-2 max-[863px]:py-2"
+                      onClick={() =>
+                        router.push(`/profile?candidate=${candidate.id}`)
+                      }
                     />
                   </div>
                 </div>
@@ -118,10 +102,10 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
             ))}
           </section>
 
-          <section className="flex flex-col items-start self-stretch overflow-hidden rounded-20 bg-white shadow-[0_0_24px_0_rgba(33,33,40,0.05)]">
-            <div className="flex flex-col items-start gap-2.5 self-stretch bg-gray-1 px-6">
+          <section className="card-surface flex flex-col items-start self-stretch overflow-hidden rounded-20">
+            <div className="flex flex-col items-start gap-2.5 self-stretch bg-background-contents-assistive px-6">
               <div className="flex items-center self-stretch border-b-[0.75px] border-line-neutral-strong px-2 py-5">
-                <div className="flex w-[240px] items-center gap-2.5">
+                <div className="vote-option-anchor">
                   <p className="text-b16-semibold overflow-hidden text-ellipsis whitespace-nowrap text-gray-4 [font-feature-settings:'liga'_off,'clig'_off]">
                     {poll.title}
                   </p>
@@ -139,7 +123,7 @@ export default function VoteClient({ initialPoll }: VoteClientProps) {
               />
             )}
 
-            <div className="flex items-center justify-center gap-2.5 self-stretch bg-white px-[50px] py-5">
+            <div className="vote-card-actions">
               <Button
                 label={poll.votedCandidateId ? "다시 투표하기" : "투표하기"}
                 size="large"
@@ -162,7 +146,7 @@ interface VoteOptionListProps {
 
 function VoteOptionList({ poll, selectedId, onSelect }: VoteOptionListProps) {
   return (
-    <div className="flex flex-col items-start gap-2.5 self-stretch bg-white px-6">
+    <div className="flex flex-col items-start gap-2.5 self-stretch bg-background-contents-default-white px-6">
       {poll.candidates.map((candidate) => {
         const isSelected = selectedId === candidate.id;
 
@@ -173,7 +157,7 @@ function VoteOptionList({ poll, selectedId, onSelect }: VoteOptionListProps) {
             className="flex cursor-pointer items-center self-stretch px-2 py-4 text-left"
             onClick={() => onSelect(candidate.id)}
           >
-            <span className="flex w-[240px] items-center gap-2.5">
+            <span className="vote-option-anchor">
               {isSelected ? (
                 <CompleteBadge />
               ) : (
@@ -183,7 +167,7 @@ function VoteOptionList({ poll, selectedId, onSelect }: VoteOptionListProps) {
                 />
               )}
 
-              <span className="flex items-center gap-[5px]">
+              <span className="vote-label-pair">
                 <span className="text-b16-semibold overflow-hidden text-ellipsis whitespace-nowrap text-gray-6 [font-feature-settings:'liga'_off,'clig'_off]">
                   {candidate.name}
                 </span>
@@ -205,11 +189,11 @@ interface VoteResultListProps {
 
 function VoteResultList({ items }: VoteResultListProps) {
   return (
-    <div className="flex flex-col items-start gap-2.5 self-stretch bg-white px-6">
+    <div className="flex flex-col items-start gap-2.5 self-stretch bg-background-contents-default-white px-6">
       {items.map((item) => (
         <div
           key={item.id}
-          className="flex flex-col items-start gap-2.5 self-stretch bg-white"
+          className="flex flex-col items-start gap-2.5 self-stretch bg-background-contents-default-white"
         >
           <div className="flex items-center self-stretch px-2 py-4">
             <div className="flex flex-1 items-center gap-2.5">
@@ -222,22 +206,22 @@ function VoteResultList({ items }: VoteResultListProps) {
                 />
               )}
 
-              <div className="flex flex-1 flex-col items-start justify-center gap-[5px]">
-                <div className="flex items-start gap-[5px] self-stretch">
+              <div className="vote-result-content">
+                <div className="vote-result-line">
                   <span className="line-clamp-1 overflow-hidden text-ellipsis text-b16-semibold text-gray-6 [font-feature-settings:'liga'_off,'clig'_off]">
                     {item.name}
                   </span>
                   <span className="line-clamp-1 overflow-hidden text-ellipsis text-b16-semibold text-gray-5 [font-feature-settings:'liga'_off,'clig'_off]">
                     {item.count}
                   </span>
-                  <span className="h-[21px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-right text-b16-semibold text-gray-6 [font-feature-settings:'liga'_off,'clig'_off]">
+                  <span className="vote-result-percent text-b16-semibold [font-feature-settings:'liga'_off,'clig'_off]">
                     {item.percentage}%
                   </span>
                 </div>
 
-                <div className="h-[9px] self-stretch rounded-[10px] bg-gray-2">
+                <div className="vote-result-track">
                   <div
-                    className={`h-full rounded-[10px] ${
+                    className={`vote-result-bar ${
                       item.isVotedCandidate ? "bg-green-primary" : "bg-gray-3"
                     }`}
                     style={{ width: `${item.percentage}%` }}

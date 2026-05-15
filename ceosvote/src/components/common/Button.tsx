@@ -16,10 +16,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const sizeStyles: Record<ButtonSize, string> = {
   large: "inline-flex px-4 py-3 text-btn16-semibold",
   medium: "inline-flex px-3 py-2 text-btn16-semibold",
-  small:
-    "inline-flex px-2 py-1.5 text-[14px] font-semibold leading-[140%] tracking-[-0.28px] text-justify",
-  xsmall:
-    "inline-flex px-1.5 py-1 text-[12px] font-bold leading-[140%] tracking-[-0.24px]",
+  small: "inline-flex px-2 py-1.5 text-btn14-semibold text-justify",
+  xsmall: "inline-flex px-1.5 py-1 text-cap12-bold",
 };
 
 const radiusStyles: Record<ButtonSize, string> = {
@@ -40,7 +38,7 @@ const styleTypeStyles: Record<ButtonStyle, string> = {
   primary:
     "bg-fill-primary-default text-text-neutral-white hover:bg-fill-primary-hover-default hover:shadow-cta-primary active:bg-fill-primary-pressed-default active:shadow-cta-primary",
   secondary:
-    "bg-fill-tertiary-default text-text-neutral-white hover:bg-[linear-gradient(146deg,var(--color-fill-tertiary-default)_42.48%,var(--color-fill-tertiary-default-pressed)_55.31%)] active:bg-fill-tertiary-default-pressed active:bg-none",
+    "button-secondary-gradient bg-fill-tertiary-default text-text-neutral-white",
   tertiary:
     "border border-line-neutral-default bg-fill-quaternary-default text-text-neutral-description hover:border-line-neutral-default hover:bg-fill-quaternary-default hover:shadow-cta-secondary active:border-line-neutral-strong active:bg-fill-quaternary-assistive active:shadow-cta-secondary",
   quaternary:

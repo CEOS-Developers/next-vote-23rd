@@ -8,10 +8,11 @@ import CTA from "@/components/common/CTA";
 import Modal from "@/components/common/Modal";
 import BackgroundGraphic from "@/components/home/BackgroundGraphic";
 import { VOTE_CATEGORIES } from "@/constants/home";
+import { getCookieToken } from "@/lib/utils/cookie";
 
 const Page = () => {
-  const [modalOpen, setModalOpen] = useState(false);
   const router = useRouter();
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div>
@@ -28,7 +29,16 @@ const Page = () => {
             <p key={category}># {category}</p>
           ))}
         </div>
-        <CTA label="투표하러 가기" onClick={() => setModalOpen(true)} />
+        <CTA
+          label="투표하러 가기"
+          onClick={() => {
+            if (getCookieToken()) {
+              router.push("/vote");
+            } else {
+              setModalOpen(true);
+            }
+          }}
+        />
       </div>
       <p className="text-gray-80 text-body2-m md:text-heading2-m pt-3 text-center">
         현재 총 20건의 투표가 진행되었어요!

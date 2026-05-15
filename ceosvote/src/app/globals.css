@@ -8,3 +8,10 @@
     font-family: "Pretendard-Variable", sans-serif;
   }
 }
+
+@layer utilities {
+  .app-container {
+    width: min(1200px, calc(100% - 80px));
+    margin-inline: auto;
+  }
+}

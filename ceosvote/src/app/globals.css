@@ -8,3 +8,334 @@
     font-family: "Pretendard-Variable", sans-serif;
   }
 }
+
+@layer utilities {
+  .app-container {
+    width: min(1200px, calc(100% - 80px));
+    margin-inline: auto;
+  }
+
+  .app-page {
+    min-height: 100vh;
+    background: var(--color-background-page);
+  }
+
+  .app-page-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 52px;
+    padding-block: 10vh 40px;
+  }
+
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: stretch;
+  }
+
+  .app-header-title {
+    flex-shrink: 0;
+    color: var(--color-blue-primary);
+    text-align: center;
+  }
+
+  .app-header-nav {
+    margin-left: auto;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+
+  .card-surface {
+    background: var(--color-background-contents-default-white);
+    box-shadow: var(--shadow-card-default);
+  }
+
+  .card-hover {
+    transition:
+      box-shadow 200ms ease-out,
+      transform 200ms ease-out;
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+
+  .button-secondary-gradient:hover {
+    background: linear-gradient(
+      146deg,
+      var(--color-fill-tertiary-default) 42.48%,
+      var(--color-fill-tertiary-default-pressed) 55.31%
+    );
+  }
+
+  .button-secondary-gradient:active {
+    background: var(--color-fill-tertiary-default-pressed);
+  }
+
+  .vote-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 50px;
+    align-self: stretch;
+  }
+
+  .candidate-list {
+    display: flex;
+    height: 350px;
+    align-items: flex-start;
+    gap: 12px;
+    align-self: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-block: 8px;
+  }
+
+  .candidate-card {
+    display: flex;
+    width: 312px;
+    height: 334px;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .candidate-card-shell {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 32px 32px 28px;
+  }
+
+  .candidate-card-content {
+    display: flex;
+    align-self: stretch;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .candidate-image-frame {
+    width: 210px;
+    height: 159px;
+    overflow: hidden;
+    border-radius: 5px;
+    background: var(--color-gray-2);
+  }
+
+  .vote-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    align-self: stretch;
+    background: var(--color-background-contents-default-white);
+    padding: 20px 50px;
+  }
+
+  .vote-option-anchor {
+    display: flex;
+    width: 240px;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .vote-label-pair {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .vote-result-content {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .vote-result-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    align-self: stretch;
+  }
+
+  .vote-result-percent {
+    flex: 1 0 0;
+    height: 21px;
+    overflow: hidden;
+    color: var(--color-gray-6);
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .vote-result-track {
+    height: 9px;
+    align-self: stretch;
+    border-radius: var(--radius-10);
+    background: var(--color-gray-2);
+  }
+
+  .vote-result-bar {
+    height: 100%;
+    border-radius: var(--radius-10);
+  }
+
+  .profile-card {
+    position: relative;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    align-self: stretch;
+    padding: 32px 32px 28px;
+  }
+
+  .profile-close-slot {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
+
+  .profile-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    align-self: stretch;
+  }
+
+  .profile-media-info {
+    display: flex;
+    flex: 1 0 0;
+    align-items: center;
+    gap: 30px;
+    padding-right: 70px;
+  }
+
+  .profile-image-frame {
+    display: flex;
+    width: 318px;
+    height: 241px;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .profile-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+    align-self: stretch;
+  }
+
+  @media (max-width: 863px) {
+    .app-container {
+      width: min(350px, calc(100% - 40px));
+    }
+
+    .app-page-stack {
+      align-items: center;
+      gap: 30px;
+      padding-block-start: 40px;
+    }
+
+    .vote-main {
+      align-items: center;
+      gap: 20px;
+    }
+
+    .candidate-list {
+      height: 305px;
+    }
+
+    .candidate-card {
+      width: 260px;
+      height: auto;
+    }
+
+    .candidate-card-content {
+      gap: 20px;
+    }
+
+    .candidate-image-frame {
+      width: 180px;
+      height: 130px;
+    }
+
+    .vote-card-actions {
+      padding-inline: 35px;
+    }
+
+    .profile-card {
+      gap: 20px;
+    }
+
+    .profile-close-slot {
+      position: static;
+      display: flex;
+      justify-content: flex-end;
+      align-self: stretch;
+    }
+
+    .profile-top {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    .profile-media-info {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 20px;
+      align-self: stretch;
+      padding-right: 0;
+    }
+
+    .profile-image-frame {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 62 / 47;
+      align-self: stretch;
+    }
+
+    .profile-info {
+      gap: 20px;
+    }
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}

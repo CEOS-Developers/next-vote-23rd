@@ -33,7 +33,7 @@ export default function Login() {
       <p className="text-heading1 py-3 border-b mb-5">LOGIN</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3.5">
-        <div className="flex flex-col">
+        <label className="flex flex-col">
           <input
             type="text"
             {...register("username")}
@@ -45,9 +45,9 @@ export default function Login() {
               ? errors.username.message
               : " "}
           </p>
-        </div>
+        </label>
 
-        <div className="flex flex-col">
+        <label className="flex flex-col">
           <input
             type="password"
             {...register("password")}
@@ -59,7 +59,7 @@ export default function Login() {
               ? errors.password.message
               : " "}
           </p>
-        </div>
+        </label>
 
         <button
           type="submit"

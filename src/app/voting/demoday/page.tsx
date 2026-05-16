@@ -7,11 +7,10 @@ export default function VotingDemoday() {
   const [selected, setSelected] = useState<TeamName | null>(null);
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-b from-[#FFFFFF] via-[#D2E6FD] to-[#FFFFFF] flex flex-col pt-[12.75rem] pb-[17.625rem] pl-[21.75rem]">
-      <div className="absolute bottom-[11.25rem] left-[45.8125rem]">
+    <main className="relative min-h-screen bg-gradient-to-b from-[#FFFFFF] via-[#D2E6FD] to-[#FFFFFF] flex flex-col pt-[10rem] pb-[5rem] pl-[5rem] md:pt-[12.75rem] md:pb-[17.625rem] md:pl-[21.75rem]">
+      <div className="absolute bottom-[5rem] right-[1rem] md:bottom-[11.25rem] md:left-[45.8125rem] md:right-auto">
         <svg
-          width="197"
-          height="197"
+          className="w-[9.375rem] h-[9.375rem] md:w-[12.3125rem] md:h-[12.3125rem]"
           viewBox="0 0 197 197"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +31,7 @@ export default function VotingDemoday() {
           {selected && <>투표하기 &gt;</>}
         </button>
       </div>
-      <ul className="flex-1 flex flex-col items-start justify-between">
+      <ul className="flex flex-col items-start gap-[1.0625rem] md:flex-1 md:justify-between md:gap-0">
         {TEAM_NAMES.map((team) => (
           <li key={team}>
             <button
@@ -41,7 +40,7 @@ export default function VotingDemoday() {
               className="relative text-label1 cursor-pointer px-6 py-2"
             >
               {selected === team && (
-                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70px] h-[70px] rounded-full bg-[#AAD2FF] blur-[10px] pointer-events-none" />
+                <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[4.375rem] h-[4.375rem] rounded-full bg-[#AAD2FF] blur-[0.625rem] pointer-events-none" />
               )}
               <span className="relative">{team}</span>
             </button>

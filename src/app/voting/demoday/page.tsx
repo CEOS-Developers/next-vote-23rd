@@ -1,3 +1,5 @@
 export default function VotingDemoday() {
-  return <h1>데모데이 투표</h1>;
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-[#FFFFFF] via-[#D2E6FD] to-[#FFFFFF]" />
+  );
 }

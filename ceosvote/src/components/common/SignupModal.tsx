@@ -5,14 +5,41 @@ import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import Icon from "@/components/common/icons/Icon";
 import Button from "@/components/common/Button";
-import { sendEmailVerification, verifyEmailCode, signup } from "@/services/auth";
+import {
+  sendEmailVerification,
+  verifyEmailCode,
+  signup,
+} from "@/services/auth";
+import { saveToken } from "@/utils/auth";
 
 type Step = "email" | "verify" | "name" | "password";
 type Part = "프론트엔드" | "백엔드";
 
 const MEMBERS: Record<Part, string[]> = {
-  프론트엔드: ["남기림", "김민서", "이윤서", "구민교", "김홍연", "오유진", "박유민", "권오진", "이승연", "황영준"],
-  백엔드: ["황신애", "최승원", "김동욱", "임종훈", "김태희", "최우혁", "안준석", "김도현", "김태익", "오지송"],
+  프론트엔드: [
+    "남기림",
+    "김민서",
+    "이윤서",
+    "구민교",
+    "김홍연",
+    "오유진",
+    "박유민",
+    "권오진",
+    "이승연",
+    "황영준",
+  ],
+  백엔드: [
+    "황신애",
+    "최승원",
+    "김동욱",
+    "임종훈",
+    "김태희",
+    "최우혁",
+    "안준석",
+    "김도현",
+    "김태익",
+    "오지송",
+  ],
 };
 
 function InputField({
@@ -40,16 +67,23 @@ function InputField({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sub14-med text-text-neutral-description">{label}</label>
-      <div className={clsx(
-        "flex items-center gap-2 border rounded-10 px-4 py-3 transition-colors",
-        disabled
-          ? "bg-fill-quaternary-assistive border-line-neutral-default"
-          : focused
-            ? "bg-fill-quaternary-default border-fill-primary-default"
-            : "bg-fill-quaternary-default border-line-neutral-default",
-      )}>
-        <Icon type={iconType} className="w-5 h-5 text-icon-neutral-assistive shrink-0" />
+      <label className="text-sub14-med text-text-neutral-description">
+        {label}
+      </label>
+      <div
+        className={clsx(
+          "flex items-center gap-2 border rounded-10 px-4 py-3 transition-colors",
+          disabled
+            ? "bg-fill-quaternary-assistive border-line-neutral-default"
+            : focused
+              ? "bg-fill-quaternary-default border-fill-primary-default"
+              : "bg-fill-quaternary-default border-line-neutral-default",
+        )}
+      >
+        <Icon
+          type={iconType}
+          className="w-5 h-5 text-icon-neutral-assistive shrink-0"
+        />
         <input
           type={type}
           className="w-full bg-transparent outline-none text-sub14-reg text-text-neutral-default placeholder:text-text-neutral-disabled disabled:text-text-neutral-disabled"
@@ -92,7 +126,9 @@ export default function SignupModal() {
       await sendEmailVerification({ email });
       setStep("verify");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "인증번호 발송에 실패했습니다.");
+      setError(
+        e instanceof Error ? e.message : "인증번호 발송에 실패했습니다.",
+      );
     } finally {
       setLoading(false);
     }
@@ -106,7 +142,9 @@ export default function SignupModal() {
       await verifyEmailCode({ email, code });
       setStep("name");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "인증번호가 올바르지 않습니다.");
+      setError(
+        e instanceof Error ? e.message : "인증번호가 올바르지 않습니다.",
+      );
     } finally {
       setLoading(false);
     }
@@ -121,8 +159,12 @@ export default function SignupModal() {
     setError("");
     setLoading(true);
     try {
-      const { accessToken } = await signup({ name: selectedName, email, password });
-      localStorage.setItem("accessToken", accessToken);
+      const { accessToken } = await signup({
+        name: selectedName,
+        email,
+        password,
+      });
+      saveToken(accessToken);
       router.push("/main");
     } catch (e) {
       setError(e instanceof Error ? e.message : "회원가입에 실패했습니다.");
@@ -136,8 +178,12 @@ export default function SignupModal() {
       <div className="flex flex-col items-center gap-8 bg-fill-quaternary-default rounded-20 px-10 py-10 w-[400px] shadow-modal">
         {/* 타이틀 */}
         <div className="flex flex-col items-center gap-2">
-          <h1 className="neurimbo-head text-fill-primary-default tracking-tight">CEOS VOTE</h1>
-          <p className="neurimbo-body text-text-neutral-description">세오스 투표하기</p>
+          <h1 className="neurimbo-head text-fill-primary-default tracking-tight">
+            CEOS VOTE
+          </h1>
+          <p className="neurimbo-body text-text-neutral-description">
+            회원가입
+          </p>
         </div>
 
         {/* Step 1: 이메일 */}
@@ -152,7 +198,9 @@ export default function SignupModal() {
               onBlur={() => setEmailFocused(false)}
               iconType="PROFILE"
             />
-            {error && <p className="text-cap12-med text-red-primary">{error}</p>}
+            {error && (
+              <p className="text-cap12-med text-red-primary">{error}</p>
+            )}
             <Button
               label={loading ? "발송 중..." : "인증번호 발송"}
               styleType="tertiary"
@@ -187,7 +235,9 @@ export default function SignupModal() {
               iconType="PASSWORD"
               placeholder="인증번호를 입력해주세요."
             />
-            {error && <p className="text-cap12-med text-red-primary">{error}</p>}
+            {error && (
+              <p className="text-cap12-med text-red-primary">{error}</p>
+            )}
             <Button
               label={loading ? "확인 중..." : "인증번호 확인"}
               styleType="tertiary"
@@ -208,7 +258,10 @@ export default function SignupModal() {
                 <button
                   key={part}
                   type="button"
-                  onClick={() => { setSelectedPart(part); setSelectedName(""); }}
+                  onClick={() => {
+                    setSelectedPart(part);
+                    setSelectedName("");
+                  }}
                   className={clsx(
                     "flex-1 py-2 text-sub14-med transition-colors",
                     selectedPart === part
@@ -240,7 +293,9 @@ export default function SignupModal() {
               ))}
             </div>
 
-            {error && <p className="text-cap12-med text-red-primary">{error}</p>}
+            {error && (
+              <p className="text-cap12-med text-red-primary">{error}</p>
+            )}
             <Button
               label="다음"
               styleType="tertiary"
@@ -275,7 +330,9 @@ export default function SignupModal() {
               onBlur={() => setConfirmFocused(false)}
               iconType="PASSWORD"
             />
-            {error && <p className="text-cap12-med text-red-primary">{error}</p>}
+            {error && (
+              <p className="text-cap12-med text-red-primary">{error}</p>
+            )}
             <Button
               label={loading ? "가입 중..." : "회원가입"}
               styleType="tertiary"

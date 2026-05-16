@@ -6,6 +6,7 @@ import clsx from "clsx";
 import Icon from "@/components/common/icons/Icon";
 import Button from "@/components/common/Button";
 import { login } from "@/services/auth";
+import { saveToken } from "@/utils/auth";
 
 export default function LoginModal() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function LoginModal() {
     setLoading(true);
     try {
       const { accessToken } = await login({ email, password });
-      localStorage.setItem("accessToken", accessToken);
+      saveToken(accessToken);
       router.push("/main");
     } catch (e) {
       setError(e instanceof Error ? e.message : "로그인에 실패했습니다.");
@@ -35,7 +36,7 @@ export default function LoginModal() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-background-page">
-      <div className="flex flex-col items-center gap-8 bg-fill-quaternary-default rounded-20 px-10 py-10 w-[400px] shadow-modal">
+      <div className="flex flex-col items-center gap-8 bg-fill-quaternary-default rounded-20 px-10 py-10 w-70 sm:w-100 shadow-modal">
         {/* 타이틀 */}
         <div className="flex flex-col items-center gap-2">
           <h1 className="neurimbo-head text-fill-primary-default tracking-tight">
@@ -56,10 +57,13 @@ export default function LoginModal() {
                 : "border-line-neutral-default",
             )}
           >
-            <Icon type="PROFILE" className="w-5 h-5 text-icon-neutral-assistive shrink-0" />
+            <Icon
+              type="PROFILE"
+              className="w-5 h-5 text-icon-neutral-assistive shrink-0"
+            />
             <input
               className="w-full bg-transparent outline-none text-sub14-reg text-text-neutral-default placeholder:text-text-neutral-disabled"
-              placeholder="내용을 입력해주세요."
+              placeholder="이메일을 입력해주세요."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onFocus={() => setEmailFocused(true)}
@@ -75,11 +79,14 @@ export default function LoginModal() {
                 : "border-line-neutral-default",
             )}
           >
-            <Icon type="PASSWORD" className="w-5 h-5 text-icon-neutral-assistive shrink-0" />
+            <Icon
+              type="PASSWORD"
+              className="w-5 h-5 text-icon-neutral-assistive shrink-0"
+            />
             <input
               type="password"
               className="w-full bg-transparent outline-none text-sub14-reg text-text-neutral-default placeholder:text-text-neutral-disabled"
-              placeholder="내용을 입력해주세요."
+              placeholder="비밀번호를 입력해주세요."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setPwFocused(true)}
@@ -88,9 +95,7 @@ export default function LoginModal() {
             />
           </div>
 
-          {error && (
-            <p className="text-cap12-med text-red-primary">{error}</p>
-          )}
+          {error && <p className="text-cap12-med text-red-primary">{error}</p>}
         </div>
 
         {/* 버튼 */}

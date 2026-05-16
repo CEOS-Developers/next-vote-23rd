@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import LogoutModal from "@/components/common/LogoutModal";
 import TextOnlyButton from "@/components/common/TextOnlyButton";
+import { clearToken } from "@/utils/auth";
 
 export default function AppHeader() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function AppHeader() {
   const closeLogoutModal = () => setIsLogoutModalOpen(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
+    clearToken();
     closeLogoutModal();
     router.push("/login");
   };

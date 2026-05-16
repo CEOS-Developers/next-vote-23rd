@@ -1,20 +1,16 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import type { Metadata } from 'next';
+import './globals.css';
+import Header from '@/components/layout/Header';
+import Navigation from '@/components/layout/Navigation';
 
 export const metadata: Metadata = {
-  title: "Next Vote 23rd",
-  description: "CEOS 23rd Vote",
+  title: 'Next Vote 23rd',
+  description: 'CEOS 23rd Vote',
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -23,11 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="ko" className="h-full antialiased">
+      <body className="mx-auto flex min-h-full max-w-97.5 flex-col bg-linear-to-b from-background to-gradient-end md:max-w-none">
+        <Header />
+        <Navigation />
+        <main className="flex-1 px-5">{children}</main>
+      </body>
     </html>
   );
 }

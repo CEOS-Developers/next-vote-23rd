@@ -5,19 +5,33 @@ import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import Icon from "@/components/common/icons/Icon";
 import Button from "@/components/common/Button";
+import { login } from "@/services/auth";
 
-interface LoginModalProps {
-  onLogin?: (id: string, password: string) => void;
-}
-
-export default function LoginModal({ onLogin }: LoginModalProps) {
+export default function LoginModal() {
   const router = useRouter();
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [idFocused, setIdFocused] = useState(false);
+  const [emailFocused, setEmailFocused] = useState(false);
   const [pwFocused, setPwFocused] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const isActive = id.length > 0 && password.length > 0;
+  const isActive = email.length > 0 && password.length > 0;
+
+  const handleLogin = async () => {
+    if (!isActive || loading) return;
+    setError("");
+    setLoading(true);
+    try {
+      const { accessToken } = await login({ email, password });
+      localStorage.setItem("accessToken", accessToken);
+      router.push("/main");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "로그인에 실패했습니다.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-background-page">
@@ -37,22 +51,19 @@ export default function LoginModal({ onLogin }: LoginModalProps) {
           <div
             className={clsx(
               "flex items-center gap-2 border rounded-10 px-4 py-3 bg-fill-quaternary-default transition-colors",
-              idFocused
+              emailFocused
                 ? "border-fill-primary-default"
                 : "border-line-neutral-default",
             )}
           >
-            <Icon
-              type="PROFILE"
-              className="w-5 h-5 text-icon-neutral-assistive shrink-0"
-            />
+            <Icon type="PROFILE" className="w-5 h-5 text-icon-neutral-assistive shrink-0" />
             <input
               className="w-full bg-transparent outline-none text-sub14-reg text-text-neutral-default placeholder:text-text-neutral-disabled"
               placeholder="내용을 입력해주세요."
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-              onFocus={() => setIdFocused(true)}
-              onBlur={() => setIdFocused(false)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setEmailFocused(true)}
+              onBlur={() => setEmailFocused(false)}
             />
           </div>
 
@@ -64,10 +75,7 @@ export default function LoginModal({ onLogin }: LoginModalProps) {
                 : "border-line-neutral-default",
             )}
           >
-            <Icon
-              type="PASSWORD"
-              className="w-5 h-5 text-icon-neutral-assistive shrink-0"
-            />
+            <Icon type="PASSWORD" className="w-5 h-5 text-icon-neutral-assistive shrink-0" />
             <input
               type="password"
               className="w-full bg-transparent outline-none text-sub14-reg text-text-neutral-default placeholder:text-text-neutral-disabled"
@@ -76,19 +84,24 @@ export default function LoginModal({ onLogin }: LoginModalProps) {
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setPwFocused(true)}
               onBlur={() => setPwFocused(false)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
             />
           </div>
+
+          {error && (
+            <p className="text-cap12-med text-red-primary">{error}</p>
+          )}
         </div>
 
         {/* 버튼 */}
         <div className="flex flex-col items-center gap-4 w-full">
           <Button
-            label="로그인"
+            label={loading ? "로그인 중..." : "로그인"}
             styleType="tertiary"
             size="large"
-            active={isActive}
+            active={isActive && !loading}
             className="w-full justify-center"
-            onClick={() => onLogin?.(id, password)}
+            onClick={handleLogin}
           />
           <button
             type="button"

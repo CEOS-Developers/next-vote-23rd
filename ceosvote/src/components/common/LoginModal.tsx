@@ -102,7 +102,7 @@ export default function LoginModal() {
         <div className="flex flex-col items-center gap-4 w-full">
           <Button
             label={loading ? "로그인 중..." : "로그인"}
-            styleType="tertiary"
+            styleType="secondary"
             size="large"
             active={isActive && !loading}
             className="w-full justify-center"

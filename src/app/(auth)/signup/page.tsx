@@ -37,7 +37,7 @@ function Dropdown({
 
   return (
     <div ref={ref} className="flex items-center gap-4 relative">
-      <span className="text-label1 shrink-0">{label}</span>
+      <span className="hidden md:inline text-label1 shrink-0">{label}</span>
       <div className="flex-1 relative">
         <button
           type="button"

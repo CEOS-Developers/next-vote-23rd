@@ -118,7 +118,7 @@ export default function Signup() {
   };
 
   return (
-    <main className="flex flex-col gap-[1.88rem] w-[34.375rem]">
+    <main className="flex flex-col gap-[1.88rem] w-full px-[1.25rem] md:w-[34.375rem] md:px-0">
       <p className="text-[1.25rem] font-extrabold leading-[135%] tracking-[-0.00125rem] py-3 border-b">
         SIGNUP
       </p>

@@ -2,17 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import LogoutModal from "@/components/common/LogoutModal";
 import TextOnlyButton from "@/components/common/TextOnlyButton";
+import { clearToken } from "@/utils/auth";
 
 export default function AppHeader() {
+  const router = useRouter();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const closeLogoutModal = () => setIsLogoutModalOpen(false);
 
   const handleLogout = () => {
+    clearToken();
     closeLogoutModal();
+    router.push("/login");
   };
 
   return (

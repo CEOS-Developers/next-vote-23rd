@@ -17,12 +17,12 @@ const NAV_ITEMS: NavItem[] = [
   { label: "LOGIN", href: "/login" },
 ];
 
-export default function NavBar() {
+export default function NavBar({ className }: { className?: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div className={className}>
       {/* 데스크탑 */}
       <div className="hidden md:flex flex-row">
         <div className="flex items-center w-145 h-9 border-3 px-6 text-body1">
@@ -76,6 +76,6 @@ export default function NavBar() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

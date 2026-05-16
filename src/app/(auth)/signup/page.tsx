@@ -45,7 +45,11 @@ function Dropdown({
           onClick={() => setOpen((o) => !o)}
           className="w-full h-10 border-b px-1 flex items-center justify-between cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <span className={value ? "text-black" : "text-gray-400"}>
+          <span
+            className={`whitespace-nowrap overflow-hidden text-ellipsis text-sm md:text-base ${
+              value ? "text-black" : "text-gray-400"
+            }`}
+          >
             {value || placeholder}
           </span>
           <span className="text-xs">▾</span>

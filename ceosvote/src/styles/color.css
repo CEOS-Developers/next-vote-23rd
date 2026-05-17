@@ -1,0 +1,71 @@
+@theme {
+  /* BlueScale */
+  --color-blue-secondary: #eff0ff;
+  --color-blue-primary: #504ef2;
+
+  /* GreenScale */
+  --color-green-secondary: #def69c;
+  --color-green-primary: #a6e007;
+  --color-green-pressed: #95d400;
+
+  /* RedScale */
+  --color-red-secondary: #fff2f2;
+  --color-red-primary: #ff4545;
+
+  /* Common */
+  --color-white: #ffffff;
+
+  /* Grayscale */
+  --color-gray-1: #f6f6f9;
+  --color-gray-2: #eaeaef;
+  --color-gray-3: #c5c5c9;
+  --color-gray-4: #9a9aa0;
+  --color-gray-5: #7b7b80;
+  --color-gray-6: #585b60;
+  --color-gray-7: #3e3e44;
+  --color-gray-8: #2f2f35;
+  --color-gray-9: #212128;
+
+  /* Semantic aliases */
+  --color-background-page: var(--color-gray-1);
+  --color-background-contents-default-white: var(--color-white);
+  --color-background-contents-assistive: var(--color-gray-1);
+  --color-background-lightbox-default: rgb(33 33 40 / 50%);
+
+  --color-fill-primary-default: var(--color-blue-primary);
+  --color-fill-primary-hover-default: #3f3dea;
+  --color-fill-primary-pressed-default: #3432cf;
+  --color-fill-secondary-default: var(--color-green-primary);
+  --color-fill-tertiary-default: var(--color-gray-8);
+  --color-fill-tertiary-default-pressed: var(--color-gray-9);
+  --color-fill-quaternary-default: var(--color-white);
+  --color-fill-quaternary-assistive: var(--color-gray-1);
+  --color-fill-quaternary-hover-assistive: var(--color-gray-2);
+  --color-fill-quaternary-assistive-pressed: var(--color-gray-3);
+  --color-fill-disabled: var(--color-gray-2);
+  --color-fill-hover: var(--color-gray-1);
+  --color-fill-dark-hover: rgb(255 255 255 / 5%);
+
+  --color-text-neutral-white: var(--color-white);
+  --color-text-neutral-default: #000000;
+  --color-text-neutral-description: var(--color-gray-7);
+  --color-text-neutral-caption: var(--color-gray-4);
+  --color-text-neutral-disabled: var(--color-gray-4);
+  --color-text-primary-default: var(--color-green-primary);
+
+  --color-icon-neutral-white: var(--color-white);
+  --color-icon-neutral-default: var(--color-gray-7);
+  --color-icon-neutral-assistive: var(--color-gray-4);
+  --color-icon-heavy: var(--color-gray-9);
+
+  --color-line-neutral-default: var(--color-gray-2);
+  --color-line-neutral-strong: var(--color-gray-3);
+
+  --shadow-cta-primary: 0 4px 12px rgb(80 78 242 / 24%);
+  --shadow-cta-secondary: 0 4px 12px rgb(33 33 40 / 12%);
+  --shadow-card-default: 0 0 24px 0 rgb(33 33 40 / 5%);
+  --shadow-card-hover: 0 6px 18px 0 rgb(33 33 40 / 5%);
+  --shadow-main-card-hover: 0 0 11.1px 0 rgb(0 0 0 / 25%);
+  --shadow-modal: 0 12px 32px 0 rgb(33 33 40 / 12%);
+  --shadow-modal-strong: 0 20px 25px -5px rgb(33 33 40 / 10%);
+}
